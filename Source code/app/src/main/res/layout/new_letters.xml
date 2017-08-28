@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/knowledge1"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/i_1"
+        android:text="What is Stress?"
+        android:textStyle="bold"
+        android:textColor="#FDFEFE"
+        />
+
+    <TextView
+        android:id="@+id/knowledge1_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Read More" />
+
+    <Button
+        android:id="@+id/knowledge2"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/i_2"
+        android:textColor="#FDFEFE"
+        android:text="What causes stress?" />
+
+    <TextView
+        android:id="@+id/knowledge2_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Read More" />
+
+    <Button
+        android:id="@+id/knowledge3"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/i_3"
+        android:text="How does stress affect my physical health?"
+        android:textColor="#FDFEFE" />
+
+    <TextView
+        android:id="@+id/knowledge3_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Read More" />
+
+    <Button
+        android:id="@+id/knowledge4"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/i_4"
+        android:textColor="#FDFEFE"
+        android:text="How does stress affect my mental health?" />
+
+    <TextView
+        android:id="@+id/knowledge4_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Read More" />
+
+    <Button
+        android:id="@+id/knowledge5"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/i_2"
+        android:textColor="#FDFEFE"
+        android:text="How can I lower my stress?" />
+
+    <TextView
+        android:id="@+id/knowledge5_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Read More" />
+</LinearLayout>

@@ -1,0 +1,715 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bgg"
+    android:gravity="center"
+    >
+
+    <TextView
+        android:id="@+id/blank2"
+        android:layout_width="match_parent"
+        android:layout_height="5dp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/numberquestion2"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:text="Question "
+            android:textSize="25dp"
+            android:layout_height="match_parent" />
+
+        <Button
+            android:id="@+id/numberbutton2"
+            android:layout_width="30dp"
+            android:gravity="center"
+            android:layout_height="36dp"
+            android:text="1"
+            android:background="@drawable/number"
+
+             />
+
+        <TextView
+            android:id="@+id/numberpage2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text=" of 10"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <ViewFlipper
+        android:id="@+id/stress_viewFlipper"
+        android:layout_width="match_parent"
+        android:layout_height="397dp"
+       >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="404dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/stress_question1"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:gravity="center"
+                android:text="Have you been upset with something that happened unexpectedly"
+                android:textSize="21dp"
+                android:textColor="#34495E"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:id="@+id/stress_group1"
+                android:layout_width="179dp"
+                android:layout_height="311dp"
+                android:layout_gravity="center"
+                >
+
+                <RadioButton
+                    android:id="@+id/stress_answer1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:background="@drawable/never_radio_button"
+                    android:button="@null"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/stress_answer2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:background="@drawable/almost_never_radio_button"
+                    android:button="@null"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/stress_answer3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:background="@drawable/sometimes_radio_button"
+                    android:button="@null"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/stress_answer4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:background="@drawable/fairly_often_radio_button"
+                    android:button="@null"
+                    android:textStyle="bold" />
+                <RadioButton
+                    android:id="@+id/stress_answer5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:background="@drawable/very_often_radio_button"
+                    android:button="@null"
+                    android:textStyle="bold" />
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="404dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/stress_question2"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:gravity="center"
+                android:text="Have you felt you cannot control the important things in your life"
+                android:textSize="21dp"
+                android:textColor="#34495E"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:id="@+id/stress_group2"
+                android:layout_width="179dp"
+                android:layout_height="311dp"
+                android:layout_gravity="center"
+                >
+
+                <RadioButton
+                    android:id="@+id/stress_answer6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:background="@drawable/never_radio_button"
+                    android:button="@null"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/stress_answer7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:background="@drawable/almost_never_radio_button"
+                    android:button="@null"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/stress_answer8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:background="@drawable/sometimes_radio_button"
+                    android:button="@null"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/stress_answer9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:background="@drawable/fairly_often_radio_button"
+                    android:button="@null"
+                    android:textStyle="bold" />
+                <RadioButton
+                    android:id="@+id/stress_answer10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:background="@drawable/very_often_radio_button"
+                    android:button="@null"
+                    android:textStyle="bold" />
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="404dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/stress_question3"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:gravity="center"
+                android:text="Have you felt nervous or “stressed”"
+                android:textSize="21dp"
+                android:textColor="#34495E"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:id="@+id/stress_group3"
+                android:layout_width="179dp"
+                android:layout_height="311dp"
+                android:layout_gravity="center"
+                >
+
+                <RadioButton
+                    android:id="@+id/stress_answer11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:background="@drawable/never_radio_button"
+                    android:button="@null"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/stress_answer12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:background="@drawable/almost_never_radio_button"
+                    android:button="@null"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/stress_answer13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:background="@drawable/sometimes_radio_button"
+                    android:button="@null"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/stress_answer14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:background="@drawable/fairly_often_radio_button"
+                    android:button="@null"
+                    android:textStyle="bold" />
+                <RadioButton
+                    android:id="@+id/stress_answer15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:background="@drawable/very_often_radio_button"
+                    android:button="@null"
+                    android:textStyle="bold" />
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="404dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/stress_question4"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:gravity="center"
+                android:text="Feel confident about your ability to handle your personal problems"
+                android:textSize="21dp"
+                android:textColor="#34495E"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:id="@+id/stress_group4"
+                android:layout_width="179dp"
+                android:layout_height="311dp"
+                android:layout_gravity="center"
+                >
+
+                <RadioButton
+                    android:id="@+id/stress_answer16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:background="@drawable/never_radio_button"
+                    android:button="@null"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/stress_answer17"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:background="@drawable/almost_never_radio_button"
+                    android:button="@null"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/stress_answer18"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:background="@drawable/sometimes_radio_button"
+                    android:button="@null"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/stress_answer19"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:background="@drawable/fairly_often_radio_button"
+                    android:button="@null"
+                    android:textStyle="bold" />
+                <RadioButton
+                    android:id="@+id/stress_answer20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:background="@drawable/very_often_radio_button"
+                    android:button="@null"
+                    android:textStyle="bold" />
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="404dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/stress_question5"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:gravity="center"
+                android:text="Have you felt that things were going your way"
+                android:textSize="21dp"
+                android:textColor="#34495E"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:id="@+id/stress_group5"
+                android:layout_width="179dp"
+                android:layout_height="311dp"
+                android:layout_gravity="center"
+                >
+
+                <RadioButton
+                    android:id="@+id/stress_answer21"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:background="@drawable/never_radio_button"
+                    android:button="@null"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/stress_answer22"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:background="@drawable/almost_never_radio_button"
+                    android:button="@null"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/stress_answer23"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:background="@drawable/sometimes_radio_button"
+                    android:button="@null"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/stress_answer24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:background="@drawable/fairly_often_radio_button"
+                    android:button="@null"
+                    android:textStyle="bold" />
+                <RadioButton
+                    android:id="@+id/stress_answer25"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:background="@drawable/very_often_radio_button"
+                    android:button="@null"
+                    android:textStyle="bold" />
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="404dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/stress_question6"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:gravity="center"
+                android:text="Could not cope with all the things you had to do"
+                android:textSize="21dp"
+                android:textColor="#34495E"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:id="@+id/stress_group6"
+                android:layout_width="179dp"
+                android:layout_height="311dp"
+                android:layout_gravity="center"
+                >
+
+                <RadioButton
+                    android:id="@+id/stress_answer26"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:background="@drawable/never_radio_button"
+                    android:button="@null"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/stress_answer27"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:background="@drawable/almost_never_radio_button"
+                    android:button="@null"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/stress_answer28"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:background="@drawable/sometimes_radio_button"
+                    android:button="@null"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/stress_answer29"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:background="@drawable/fairly_often_radio_button"
+                    android:button="@null"
+                    android:textStyle="bold" />
+                <RadioButton
+                    android:id="@+id/stress_answer30"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:background="@drawable/very_often_radio_button"
+                    android:button="@null"
+                    android:textStyle="bold" />
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="404dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/stress_question7"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:gravity="center"
+                android:text="Have you been able top control irritations in your life"
+                android:textSize="21dp"
+                android:textColor="#34495E"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:id="@+id/stress_group7"
+                android:layout_width="179dp"
+                android:layout_height="311dp"
+                android:layout_gravity="center"
+                >
+
+                <RadioButton
+                    android:id="@+id/stress_answer31"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:background="@drawable/never_radio_button"
+                    android:button="@null"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/stress_answer32"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:background="@drawable/almost_never_radio_button"
+                    android:button="@null"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/stress_answer33"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:background="@drawable/sometimes_radio_button"
+                    android:button="@null"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/stress_answer34"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:background="@drawable/fairly_often_radio_button"
+                    android:button="@null"
+                    android:textStyle="bold" />
+                <RadioButton
+                    android:id="@+id/stress_answer35"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:background="@drawable/very_often_radio_button"
+                    android:button="@null"
+                    android:textStyle="bold" />
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="404dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/stress_question8"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:gravity="center"
+                android:text="Have you felt that you were on top of things"
+                android:textSize="21dp"
+                android:textColor="#34495E"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:id="@+id/stress_group8"
+                android:layout_width="179dp"
+                android:layout_height="311dp"
+                android:layout_gravity="center"
+                >
+
+                <RadioButton
+                    android:id="@+id/stress_answer36"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:background="@drawable/never_radio_button"
+                    android:button="@null"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/stress_answer37"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:background="@drawable/almost_never_radio_button"
+                    android:button="@null"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/stress_answer38"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:background="@drawable/sometimes_radio_button"
+                    android:button="@null"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/stress_answer39"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:background="@drawable/fairly_often_radio_button"
+                    android:button="@null"
+                    android:textStyle="bold" />
+                <RadioButton
+                    android:id="@+id/stress_answer40"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:background="@drawable/very_often_radio_button"
+                    android:button="@null"
+                    android:textStyle="bold" />
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="404dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/stress_question9"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:gravity="center"
+                android:text="Angered because of things that were outside of your control"
+                android:textSize="21dp"
+                android:textColor="#34495E"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:id="@+id/stress_group9"
+                android:layout_width="179dp"
+                android:layout_height="311dp"
+                android:layout_gravity="center"
+                >
+
+                <RadioButton
+                    android:id="@+id/stress_answer41"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:background="@drawable/never_radio_button"
+                    android:button="@null"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/stress_answer42"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:background="@drawable/almost_never_radio_button"
+                    android:button="@null"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/stress_answer43"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:background="@drawable/sometimes_radio_button"
+                    android:button="@null"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/stress_answer44"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:background="@drawable/fairly_often_radio_button"
+                    android:button="@null"
+                    android:textStyle="bold" />
+                <RadioButton
+                    android:id="@+id/stress_answer45"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:background="@drawable/very_often_radio_button"
+                    android:button="@null"
+                    android:textStyle="bold" />
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="404dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/stress_question10"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:gravity="center"
+                android:text="Find difficulties to overcome challenges"
+                android:textSize="21dp"
+                android:textColor="#34495E"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:id="@+id/stress_group10"
+                android:layout_width="179dp"
+                android:layout_height="311dp"
+                android:layout_gravity="center"
+                >
+
+                <RadioButton
+                    android:id="@+id/stress_answer46"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:background="@drawable/never_radio_button"
+                    android:button="@null"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/stress_answer47"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:background="@drawable/almost_never_radio_button"
+                    android:button="@null"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/stress_answer48"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:background="@drawable/sometimes_radio_button"
+                    android:button="@null"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/stress_answer49"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:background="@drawable/fairly_often_radio_button"
+                    android:button="@null"
+                    android:textStyle="bold" />
+                <RadioButton
+                    android:id="@+id/stress_answer50"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:background="@drawable/very_often_radio_button"
+                    android:button="@null"
+                    android:textStyle="bold" />
+            </RadioGroup>
+        </LinearLayout>
+
+    </ViewFlipper>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <Button
+            android:id="@+id/next2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/next"
+            android:textColor="#A3E4D7"
+            android:layout_marginRight="49dp"
+            android:layout_marginEnd="49dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+        <Button
+            android:id="@+id/previous2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/back"
+            android:textColor="#A3E4D7"
+            android:layout_marginLeft="54dp"
+            android:layout_marginStart="54dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+    </RelativeLayout>
+
+</LinearLayout>

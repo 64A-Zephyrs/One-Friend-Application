@@ -1,7 +1,0 @@
-HOW TO INSTALL
-
-1) UNZIP PART 1 and PART 3 into a folder called One Friend
-
-2) Then create a new folder called app in One friend folder 
-
-3) UNZIP APP 1 and APP 2 into the folder app
