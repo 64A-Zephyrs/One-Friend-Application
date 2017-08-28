@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_homepage"
+            android:title="Home" />
+        <item
+            android:id="@+id/nav_stress_test"
+            android:title="Stress Test" />
+        <item
+            android:id="@+id/nav_mindfulness_test"
+            android:title="Mindfulness Test" />
+        <item
+            android:id="@+id/nav_facts_test"
+            android:title="Facts"/>
+        <item
+            android:id="@+id/nav_setting_test"
+            android:title="Settings"/>
+
+    </group>
+</menu>
