@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+    <!-- 定义ViewFlipper组件 -->
+
+
+    <ViewFlipper
+        android:id="@+id/flipper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/welcome">
+
+            <Button
+                android:id="@+id/next1"
+                android:layout_width="130dp"
+                android:layout_height="50dp"
+                android:layout_above="@+id/skip1"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="11dp"
+                android:background="@drawable/done_click"
+                android:text="Next"
+                android:textColor="@drawable/done_text_click"
+                android:textSize="25dp" />
+
+            <Button
+                android:id="@+id/skip1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="50dp"
+                android:background="#00000000"
+                android:text="Skip"
+                android:textColor="@color/buttonColor" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/reminder">
+
+            <TimePicker
+                android:id="@+id/timepicker2"
+                android:layout_width="300dp"
+                android:layout_height="150dp"
+                android:timePickerMode="spinner"
+                android:layout_marginBottom="50dp"
+                android:layout_above="@+id/next2"
+                android:layout_centerHorizontal="true" />
+
+
+            <Button
+                android:id="@+id/next2"
+                android:layout_width="130dp"
+                android:layout_height="50dp"
+                android:layout_above="@+id/skip2"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="11dp"
+                android:background="@drawable/done_click"
+                android:text="Next"
+                android:textColor="@drawable/done_text_click"
+                android:textSize="25dp" />
+
+            <Button
+                android:id="@+id/skip2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="50dp"
+                android:background="#00000000"
+                android:text="Skip"
+                android:textColor="@color/buttonColor" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/how">
+
+            <Button
+                android:id="@+id/next3"
+                android:layout_width="130dp"
+                android:layout_height="50dp"
+                android:background="@drawable/done_click"
+                android:textSize="25dp"
+                android:textColor="@drawable/done_text_click"
+                android:text="Start"
+                android:layout_marginBottom="11dp"
+                android:layout_above="@+id/skip3"
+                android:layout_centerHorizontal="true" />
+
+            <Button
+                android:id="@+id/skip3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="50dp"
+                android:text="Skip"
+                android:textColor="@color/buttonColor"
+                android:background="#00000000"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true" />
+
+        </RelativeLayout>
+
+
+
+
+    </ViewFlipper>
+
+
+</LinearLayout>

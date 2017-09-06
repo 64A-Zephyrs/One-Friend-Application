@@ -1,13 +1,108 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="activity_login.onefriend.BottomBar">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    tools:context="com.zephyrs.android.onefriend.BottomBar">
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="2" />
+        android:orientation="horizontal"
+
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp">
+
+            <Button
+                android:id="@+id/report_page"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/reportlogo"
+
+                android:fontFamily="monospace"
+                android:textAllCaps="false"
+                android:textSize="15dp"
+                android:textStyle="normal" />
+
+            <Button
+                android:id="@+id/buttonquestion"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:paddingTop="15dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@mipmap/help"
+                android:fontFamily="monospace"
+                android:gravity="center"
+                android:textAllCaps="false"
+                android:textSize="15dp" />
+
+        </RelativeLayout>
+
+
+        <Button
+            android:id="@+id/yes"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+
+            android:layout_above="@+id/notsure"
+            android:layout_alignLeft="@+id/notsure"
+            android:layout_alignStart="@+id/notsure"
+            android:text="Yes"
+            android:textSize="50dp"
+            android:textColor="@drawable/yes_text_click"
+            android:background="@drawable/yes_button_click" />
+
+        <Button
+            android:id="@+id/no"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:text="No"
+            android:textSize="50dp"
+            android:layout_alignEnd="@+id/notsure"
+            android:layout_alignRight="@+id/notsure"
+            android:layout_centerVertical="true"
+            android:textColor="@drawable/no_text_button"
+            android:background="@drawable/no_button_click" />
+
+        <Button
+            android:id="@+id/notsure"
+            android:layout_width="303dp"
+            android:layout_height="100dp"
+            android:text="Not Sure"
+            android:textSize="50dp"
+            android:layout_below="@+id/no"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:textColor="@drawable/notsure_text_button"
+            android:background="@drawable/notsure_button_click" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="27dp"
+            android:text="Are you feeling stressed today?"
+            android:textSize="30dp"
+
+            android:layout_above="@+id/yes"
+            android:layout_centerHorizontal="true" />
+
+
+    </RelativeLayout>
+
 
 </FrameLayout>

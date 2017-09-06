@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "523673959561",
+    "firebase_url": "https://onefriend-678d3.firebaseio.com",
+    "project_id": "onefriend-678d3",
+    "storage_bucket": "onefriend-678d3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:523673959561:android:fe171cec5444ea7d",
+        "android_client_info": {
+          "package_name": "com.zephyrs.android.onefriend"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "523673959561-a9rfj87j81ff35lr1u7naqdtbmrhvqtd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.zephyrs.android.onefriend",
+            "certificate_hash": "356c457a994d8819992f8c7a30da3ccebcb59cc8"
+          }
+        },
+        {
+          "client_id": "523673959561-rgs7em6vbijnn31q5nn5j00vk0pij2ni.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC569L5eIEKExuzhMhiQer6CB1AjglH5wg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "523673959561-rgs7em6vbijnn31q5nn5j00vk0pij2ni.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
