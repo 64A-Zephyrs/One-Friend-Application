@@ -13,6 +13,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:weightSum="1">
@@ -88,10 +89,11 @@
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="MY STRESS"
+                android:textSize="23dp"
                 android:layout_above="@+id/head"
                 android:layout_centerHorizontal="true"
-                android:text="Activities"
-                android:textSize="40dp" />
+                android:layout_marginBottom="16dp" />
 
             <ImageButton
                 android:id="@+id/head"
@@ -163,7 +165,7 @@
                 android:id="@+id/sb_1"
                 android:layout_width="280dp"
                 android:layout_height="wrap_content"
-                android:max="60"
+                android:max="10"
                 android:progress="0"
                 android:progressDrawable="@drawable/stress_head_color"
                 android:splitTrack="false"
@@ -218,7 +220,7 @@
                 android:id="@+id/sb_2"
                 android:layout_width="280dp"
                 android:layout_height="wrap_content"
-                android:max="60"
+                android:max="80"
                 android:progress="0"
                 android:progressDrawable="@drawable/stress_head_color"
                 android:splitTrack="false"
@@ -274,7 +276,7 @@
                 android:id="@+id/sb_3"
                 android:layout_width="280dp"
                 android:layout_height="wrap_content"
-                android:max="60"
+                android:max="15"
                 android:progress="0"
                 android:progressDrawable="@drawable/stress_head_color"
                 android:splitTrack="false"
@@ -330,7 +332,7 @@
                 android:id="@+id/sb_4"
                 android:layout_width="280dp"
                 android:layout_height="wrap_content"
-                android:max="60"
+                android:max="90"
                 android:progress="0"
                 android:progressDrawable="@drawable/stress_head_color"
                 android:splitTrack="false"
@@ -386,7 +388,7 @@
                 android:id="@+id/sb_5"
                 android:layout_width="280dp"
                 android:layout_height="wrap_content"
-                android:max="60"
+                android:max="10"
                 android:progress="0"
                 android:progressDrawable="@drawable/stress_head_color"
                 android:splitTrack="false"
@@ -439,7 +441,7 @@
                 android:id="@+id/sb_6"
                 android:layout_width="280dp"
                 android:layout_height="wrap_content"
-                android:max="60"
+                android:max="70"
                 android:progress="0"
                 android:progressDrawable="@drawable/stress_head_color"
                 android:splitTrack="false"
@@ -452,6 +454,11 @@
                 android:background="@drawable/info" />
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/bank"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            />
     </LinearLayout>
 
 </ScrollView>

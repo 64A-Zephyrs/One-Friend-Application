@@ -5,7 +5,7 @@ android {
     buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "com.zephyrs.android.onefriend"
-        minSdkVersion 15
+        minSdkVersion 23
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -30,7 +30,18 @@ dependencies {
     compile 'com.google.firebase:firebase-database:10.0.1'
     testCompile 'junit:junit:4.12'
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.2'
+    compile 'com.facebook.android:facebook-android-sdk:[4,5)'
+    compile 'com.google.android.gms:play-services-auth:10.0.1'
+    compile 'com.google.firebase:firebase-auth:10.0.1'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.google.firebase:firebase-core:9.2.0'                        // this line must be included to integrate with Firebase
+    compile 'com.google.firebase:firebase-messaging:9.2.0'
+    compile 'com.google.code.gson:gson:2.7' // this line must be included to use FCM
 }
 
-
+android {
+    aaptOptions {
+        noCompress "pdf"
+    }
+}
 apply plugin: 'com.google.gms.google-services'

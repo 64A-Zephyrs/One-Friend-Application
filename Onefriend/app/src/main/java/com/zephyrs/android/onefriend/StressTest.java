@@ -11,6 +11,13 @@ import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.CheckBox;
 
+import com.google.firebase.database.DatabaseReference;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by Barry on 2/9/17.
  */
@@ -32,7 +39,7 @@ public class StressTest extends AppCompatActivity {
     Integer score;
     Button back;
     Button question;
-
+    private DatabaseReference mDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -126,6 +133,14 @@ public class StressTest extends AppCompatActivity {
                 editor.putString("stress_score", score.toString());
                 editor.putString("stress_today", score.toString());
                 editor.commit();
+
+
+//                Date date = new Date();
+//                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+//                mDatabase = FirebaseDatabase.getInstance().getReference();
+//                mDatabase.child("Profile").child(currentUser.getUid()).child(ConvertDate(date) + "Today").setValue(score.toString());
+//                mDatabase.child("Profile").child(currentUser.getUid()).child(ConvertDate(date) + "Finally").setValue(score.toString());
+
                 Intent testintent = new Intent(StressTest.this,StressLevel.class);
                 startActivity(testintent);
                 overridePendingTransition(R.anim.fade, R.anim.hold);
@@ -137,8 +152,7 @@ public class StressTest extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent testintent = new Intent(StressTest.this,BottomBar.class);
-                startActivity(testintent);
+               onBackPressed();
                 overridePendingTransition(R.anim.fade, R.anim.hold);
             }
         });
@@ -151,5 +165,25 @@ public class StressTest extends AppCompatActivity {
                 overridePendingTransition(R.anim.fade, R.anim.hold);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        // 判断是否能够回退
+        super.onBackPressed();
+    }
+
+    public String ConvertDate(Date date) {
+
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        String s = df.format(date);
+        String result = s;
+        try {
+            date = df.parse(result);
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return s;
     }
 }

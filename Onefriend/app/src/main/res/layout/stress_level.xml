@@ -30,7 +30,7 @@
             android:id="@+id/need_help_button"
             android:layout_width="150dp"
             android:layout_height="40dp"
-            android:text="Need Help?"
+            android:text="Change symptoms"
             android:textSize="15dp"
             android:gravity="right|center"
             android:fontFamily="monospace"
@@ -61,8 +61,8 @@
             android:gravity="center"
             android:paddingBottom="10dp"
             android:paddingTop="30dp"
-            android:text="Your Stress Level"
-            android:textSize="30dp" />
+            android:text="STRESS LEVEL"
+            android:textSize="23dp" />
 
         <LinearLayout
             android:layout_width="match_parent"

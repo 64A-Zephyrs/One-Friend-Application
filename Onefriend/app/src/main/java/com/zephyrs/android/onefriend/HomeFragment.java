@@ -18,6 +18,16 @@ import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -50,6 +60,7 @@ public class HomeFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
     Integer score;
     Integer total;
     View homefragment;
+    private DatabaseReference mDatabase;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -160,7 +171,7 @@ public class HomeFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
         h1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new android.app.AlertDialog.Builder(getActivity()).setTitle("Sleep").setMessage("High stress levels can cause trouble sleeping, research suggests that at least 7-8 hours of sleep per night can lower stress levels.")
+                new android.app.AlertDialog.Builder(getActivity()).setTitle("Sleep longer hours").setMessage("High stress levels can cause trouble sleeping, research suggests that at least 7-8 hours of sleep per night can reduce stress levels.")
                         .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -170,7 +181,7 @@ public class HomeFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
         h2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new android.app.AlertDialog.Builder(getActivity()).setTitle("Exercise").setMessage("Exercise ranging from aerobics to yoga is great way to stay fit and reduce stress, try to spend 20 minutes or more on exercising.")
+                new android.app.AlertDialog.Builder(getActivity()).setTitle("Exercise routinely").setMessage("Exercise ranging from aerobics to yoga is great way to stay fit and reduce stress, preferably try to spend 20 minutes or more on exercising.")
                         .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -181,7 +192,7 @@ public class HomeFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
         h3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new android.app.AlertDialog.Builder(getActivity()).setTitle("Meditation").setMessage("Medication can wipe away day’s stress. Research recommends at least 5-6 minutes each day can improve stress.")
+                new android.app.AlertDialog.Builder(getActivity()).setTitle("Meditate frequently").setMessage("Medication can help to become more mindful. Research recommends at least 5 minutes each day can improve your mindfulness.")
                         .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -191,7 +202,7 @@ public class HomeFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
         h4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new android.app.AlertDialog.Builder(getActivity()).setTitle("Relationship").setMessage("Stress can often be depressing. Routinely taking 10 minutes off from your busy schedule will have significant impact on your daily stress levels.")
+                new android.app.AlertDialog.Builder(getActivity()).setTitle("Socialize more").setMessage("Stress can often be depressing. Routinely taking 10 minutes off from your busy schedule will have significant impact on your daily stress levels.")
                         .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -201,7 +212,7 @@ public class HomeFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
         h5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new android.app.AlertDialog.Builder(getActivity()).setTitle("Water").setMessage("Drinking water will increase your fluids level which can help reduce immediate stress. Recommended 8 glasses of water per day.")
+                new android.app.AlertDialog.Builder(getActivity()).setTitle("Drink more water").setMessage("Drinking water will increase your fluids level which can help reduce immediate stress. Medical experts suggest at least 6 glasses of water per day.")
                         .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -211,7 +222,7 @@ public class HomeFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
         h6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new android.app.AlertDialog.Builder(getActivity()).setTitle("Hobbies").setMessage("Hobbies will divert your mind which in turn which will results in reducing the stress. This could range from reading novels to playing board games. Spend approx.. 20 minutes each day.")
+                new android.app.AlertDialog.Builder(getActivity()).setTitle("Spend time on hobbies").setMessage("Hobbies will divert your mind which in turn will results in reducing the stress. Ranging from reading novels to playing board games. Spend approximately 10-15 minutes each day.")
                         .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -333,105 +344,158 @@ public class HomeFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+
         if (mSeekBar1.getProgress() == 0){
-            sleep.setText("3 Hours or less");
+//            sleep.setText("3 Hours or less");
+            sleep.setText(mSeekBar1.getProgress()+" Hour");
+            score = score + 0;
+        } else if (mSeekBar1.getProgress() >= 0 && mSeekBar1.getProgress() <= 3){
+//            sleep.setText("3 Hours or less");
+            sleep.setText(mSeekBar1.getProgress()+" Hours");
                 score = score + 0;
-        } else if (mSeekBar1.getProgress() >0 && mSeekBar1.getProgress() <= 15) {
-            sleep.setText("4-5 Hours");
+        } else if (mSeekBar1.getProgress() >3 && mSeekBar1.getProgress() <= 5) {
+//            sleep.setText("4-5 Hours");
+            sleep.setText(mSeekBar1.getProgress()+" Hours");
                 score = score + 1;
-            } else if (mSeekBar1.getProgress() > 15 && mSeekBar1.getProgress() <= 30) {
-            sleep.setText("6-7 Hours");
+            } else if (mSeekBar1.getProgress() > 5 && mSeekBar1.getProgress() <= 7) {
+//            sleep.setText("6-7 Hours");
+            sleep.setText(mSeekBar1.getProgress()+" Hours");
                 score = score + 2;
-            } else if (mSeekBar1.getProgress() > 30 && mSeekBar1.getProgress() <= 45) {
-            sleep.setText("8-9 Hours");
+            } else if (mSeekBar1.getProgress() > 7 && mSeekBar1.getProgress() <= 9) {
+//            sleep.setText("8-9 Hours");
+            sleep.setText(mSeekBar1.getProgress()+" Hours");
                 score = score + 3;
-            } else if (mSeekBar1.getProgress() > 45 && mSeekBar1.getProgress() <= 60) {
-            sleep.setText("10 Hours or more");
+            } else if (mSeekBar1.getProgress() >= 9 && mSeekBar1.getProgress() <= 10) {
+//            sleep.setText("10 Hours or more");
+            sleep.setText(mSeekBar1.getProgress()+" Hours");
                 score = score + 4;
             }
+
         if (mSeekBar2.getProgress() == 0){
-            exercise.setText("0 Minutes");
+//            exercise.setText("0 Minutes");
+            exercise.setText(mSeekBar2.getProgress()+" Minute");
             score = score + 0;
-        } else if (mSeekBar2.getProgress() >0 && mSeekBar2.getProgress() <= 15) {
-            exercise.setText("20 Minutes");
+        } else if (mSeekBar2.getProgress() > 0 && mSeekBar2.getProgress() <= 10){
+//            exercise.setText("0 Minutes");
+            exercise.setText(mSeekBar2.getProgress()+" Minutes");
+            score = score + 0;
+        } else if (mSeekBar2.getProgress() >10 && mSeekBar2.getProgress() <= 20) {
+            exercise.setText(mSeekBar2.getProgress()+" Minutes");
+//            exercise.setText("20 Minutes");
                 score = score + 1;
-            } else if(mSeekBar2.getProgress() >15 && mSeekBar2.getProgress()<=30){
-            exercise.setText("40 Minutes");
+            } else if(mSeekBar2.getProgress() >20 && mSeekBar2.getProgress()<=30){
+            exercise.setText(mSeekBar2.getProgress()+" Minutes");
+//            exercise.setText("40 Minutes");
                 score = score + 2;
-            }else if(mSeekBar2.getProgress() >30 && mSeekBar2.getProgress()<=45){
-            exercise.setText("60 Minutes");
+            }else if(mSeekBar2.getProgress() >30 && mSeekBar2.getProgress()<=40){
+            exercise.setText(mSeekBar2.getProgress()+" Minutes");
+//            exercise.setText("60 Minutes");
                 score = score + 3;
-            }else if(mSeekBar2.getProgress() >45 && mSeekBar2.getProgress()<=60){
-            exercise.setText("80 Minutes or more");
+            }else if(mSeekBar2.getProgress() >40 && mSeekBar2.getProgress()<=60){
+            exercise.setText(mSeekBar2.getProgress()+" Minutes");
+//            exercise.setText("80 Minutes or more");
                 score = score + 4;
             }
 
 
         if (mSeekBar3.getProgress() == 0){
-            meditation.setText("0 Minutes");
+            meditation.setText("0 Minute");
             score = score + 0;
-            } else if (mSeekBar3.getProgress() >0 && mSeekBar3.getProgress() <= 15) {
-            meditation.setText("1-5 Minutes");
+        } else if (mSeekBar3.getProgress() <= 2){
+            meditation.setText(mSeekBar3.getProgress()+" Minutes");
+            score = score + 0;
+            } else if (mSeekBar3.getProgress() >2 && mSeekBar3.getProgress() <= 5) {
+//            meditation.setText("1-5 Minutes");
+            meditation.setText(mSeekBar3.getProgress()+" Minutes");
                 score = score + 1;
-            } else if(mSeekBar3.getProgress() >15 && mSeekBar3.getProgress()<=30){
-            meditation.setText("6-10 Minutes");
+            } else if(mSeekBar3.getProgress() >5 && mSeekBar3.getProgress()<=8){
+//            meditation.setText("6-10 Minutes");
+            meditation.setText(mSeekBar3.getProgress()+" Minutes");
                 score = score + 2;
-            }else if(mSeekBar3.getProgress() >30 && mSeekBar3.getProgress()<=45){
-            meditation.setText("11-15 Minutes");
+            }else if(mSeekBar3.getProgress() >8 && mSeekBar3.getProgress()<=11){
+//            meditation.setText("11-15 Minutes");
+            meditation.setText(mSeekBar3.getProgress()+" Minutes");
                 score = score + 3;
-            }else if(mSeekBar3.getProgress() >45 && mSeekBar3.getProgress()<=60){
-            meditation.setText("16 Minutes or more");
+            }else if(mSeekBar3.getProgress() >11 && mSeekBar2.getProgress()<=15){
+//            meditation.setText("16 Minutes or more");
+            meditation.setText(mSeekBar3.getProgress()+" Minutes");
                 score = score + 4;
             }
 
         if (mSeekBar4.getProgress() == 0){
-            social.setText("0 Minutes");
+//            social.setText("0 Minutes");
+            social.setText(mSeekBar4.getProgress()+" Minute");
             score = score + 0;
-        } else if (mSeekBar4.getProgress() >0 && mSeekBar4.getProgress() <= 15) {
-            social.setText("15 Minutes");
+            } else if (mSeekBar4.getProgress() < 8){
+//            social.setText("0 Minutes");
+            social.setText(mSeekBar4.getProgress()+" Minutes");
+            score = score + 0;
+            } else if (mSeekBar4.getProgress() >=8 && mSeekBar4.getProgress() <= 28) {
+//            social.setText("15 Minutes");
+            social.setText(mSeekBar4.getProgress()+" Minutes");
                 score = score + 1;
-            } else if(mSeekBar4.getProgress() >15 && mSeekBar4.getProgress()<=30){
-            social.setText("30 Minutes");
+            } else if(mSeekBar4.getProgress() >28 && mSeekBar4.getProgress()<=46){
+//            social.setText("30 Minutes");
+            social.setText(mSeekBar4.getProgress()+" Minutes");
                 score = score + 2;
-            }else if(mSeekBar4.getProgress() >30 && mSeekBar4.getProgress()<=45){
-            social.setText("60 Minutes");
+            }else if(mSeekBar4.getProgress() >46 && mSeekBar4.getProgress()<=64){
+//            social.setText("60 Minutes");
+            social.setText(mSeekBar4.getProgress()+" Minutes");
                 score = score + 3;
-            }else if(mSeekBar4.getProgress() >45 && mSeekBar4.getProgress()<=60){
-            social.setText("90 Minutes or more");
+            }else if(mSeekBar4.getProgress() >64 && mSeekBar4.getProgress()<=90){
+//            social.setText("90 Minutes or more");
+            social.setText(mSeekBar4.getProgress()+" Minutes");
                 score = score + 4;
             }
 
         if (mSeekBar5.getProgress() == 0){
-            water.setText("0 Glasses");
+            water.setText(mSeekBar5.getProgress()+" Glass");
             score = score + 0;
-        } else if (mSeekBar5.getProgress() >0 && mSeekBar5.getProgress() <= 15) {
-            water.setText("1-3 Glasses");
+        } else if (mSeekBar5.getProgress() <= 2){
+            water.setText(mSeekBar5.getProgress()+" Glasses");
+            score = score + 0;
+        } else if (mSeekBar5.getProgress() >2 && mSeekBar5.getProgress() <= 4) {
+//            water.setText("1-3 Glasses");
+            water.setText(mSeekBar5.getProgress()+" Glasses");
                 score = score + 1;
-            } else if(mSeekBar5.getProgress() >15 && mSeekBar5.getProgress()<=30){
-            water.setText("4-6 Glasses");
+            } else if(mSeekBar5.getProgress() >4 && mSeekBar5.getProgress()<=6){
+//            water.setText("4-6 Glasses");
+            water.setText(mSeekBar5.getProgress()+" Glasses");
                 score = score + 2;
-            }else if(mSeekBar5.getProgress() >30 && mSeekBar5.getProgress()<=45){
-            water.setText("7-9 Glasses");
+            }else if(mSeekBar5.getProgress() >6 && mSeekBar5.getProgress()<=8){
+//            water.setText("7-9 Glasses");
+            water.setText(mSeekBar5.getProgress()+" Glasses");
                 score = score + 3;
-            }else if(mSeekBar5.getProgress() >45 && mSeekBar5.getProgress()<=60){
-            water.setText("10 Glasses or more");
+            }else if(mSeekBar5.getProgress() >8 && mSeekBar5.getProgress()<=10){
+//            water.setText("10 Glasses or more");
+            water.setText(mSeekBar5.getProgress()+" Glasses");
                 score = score + 4;
             }
 
         if (mSeekBar6.getProgress() == 0){
-            hobby.setText("0 Minutes");
+            hobby.setText(mSeekBar6.getProgress()+" Minute");
+//            hobby.setText("0 Minutes");
             score = score + 0;
-        } else if (mSeekBar6.getProgress() >0 && mSeekBar6.getProgress() <= 15) {
-            hobby.setText("15 Minutes");
+        } else if (mSeekBar6.getProgress() < 15){
+            hobby.setText(mSeekBar6.getProgress()+" Minutes");
+//            hobby.setText("0 Minutes");
+            score = score + 0;
+        } else if (mSeekBar6.getProgress() >=15 && mSeekBar6.getProgress() <= 25) {
+            hobby.setText(mSeekBar6.getProgress()+" Minutes");
+//            hobby.setText("15 Minutes");
                 score = score + 1;
-            } else if(mSeekBar6.getProgress() >15 && mSeekBar6.getProgress()<=30){
-            hobby.setText("30 Minutes");
+            } else if(mSeekBar6.getProgress() >25 && mSeekBar6.getProgress()<=40){
+            hobby.setText(mSeekBar6.getProgress()+" Minutes");
+//            hobby.setText("30 Minutes");
                 score = score + 2;
-            }else if(mSeekBar6.getProgress() >30 && mSeekBar6.getProgress()<=45){
-            hobby.setText("45 Minutes");
+            }else if(mSeekBar6.getProgress() >40 && mSeekBar6.getProgress()<=55){
+            hobby.setText(mSeekBar6.getProgress()+" Minutes");
+//            hobby.setText("45 Minutes");
                 score = score + 3;
-            }else if(mSeekBar6.getProgress() >45 && mSeekBar6.getProgress()<=60){
-            hobby.setText("60 Minutes or more");
+            }else if(mSeekBar6.getProgress() >55 && mSeekBar6.getProgress()<=70){
+            hobby.setText(mSeekBar6.getProgress()+" Minutes");
+//            hobby.setText("60 Minutes or more");
                 score = score + 4;
             }
         checkchangehead();
@@ -452,6 +516,9 @@ public class HomeFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
     public void checkchangehead(){
         Integer difference;
         difference = total - score;
+        if(difference<0){
+            difference=0;
+        }
         SharedPreferences settings = getActivity().getSharedPreferences("score", 0);
         SharedPreferences.Editor editor = settings.edit();
         editor.putString("seekbar1", String.valueOf(mSeekBar1.getProgress()));
@@ -463,7 +530,59 @@ public class HomeFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
         editor.putString("stress_head", String.valueOf(total));
         editor.putString("stress_reduce", String.valueOf(score));
         editor.commit();
-        if(difference<0){
+
+        String sleep1;
+        String exercise1;
+        String meditation1;
+        String social1;
+        String water1;
+        String hobby1;
+        if(mSeekBar1.getProgress() ==0){
+            sleep1 = mSeekBar1.getProgress()+" Hour";
+        } else{
+            sleep1 = mSeekBar1.getProgress()+" Hours";
+        }
+        if(mSeekBar2.getProgress() ==0){
+            exercise1 = mSeekBar2.getProgress()+" Minute";
+        } else{
+            exercise1 = mSeekBar2.getProgress()+" Minutes";
+        }
+        if(mSeekBar3.getProgress() ==0){
+            meditation1 = mSeekBar3.getProgress()+" Minute";
+        } else{
+            meditation1 = mSeekBar3.getProgress()+" Minutes";
+        }
+        if(mSeekBar4.getProgress() ==0){
+            social1 = mSeekBar4.getProgress()+" Minute";
+        } else{
+            social1 = mSeekBar4.getProgress()+" Minutes";
+        }
+        if(mSeekBar5.getProgress() ==0){
+            water1 = mSeekBar5.getProgress()+" Glasse";
+        } else{
+            water1 = mSeekBar5.getProgress()+" Glasses";
+        }
+        if(mSeekBar6.getProgress() ==0){
+            hobby1 = mSeekBar6.getProgress()+" Minute";
+        } else{
+            hobby1 = mSeekBar6.getProgress()+" Minutes";
+        }
+
+        Date date = new Date();
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("Profile").child(currentUser.getUid()).child("Report").child(ConvertDate(date)).child("Sleep").setValue(sleep1);
+        mDatabase.child("Profile").child(currentUser.getUid()).child("Report").child(ConvertDate(date)).child("Exercise").setValue(exercise1);
+        mDatabase.child("Profile").child(currentUser.getUid()).child("Report").child(ConvertDate(date)).child("Meditation").setValue(meditation1);
+        mDatabase.child("Profile").child(currentUser.getUid()).child("Report").child(ConvertDate(date)).child("Social").setValue(social1);
+        mDatabase.child("Profile").child(currentUser.getUid()).child("Report").child(ConvertDate(date)).child("Water").setValue(water1);
+        mDatabase.child("Profile").child(currentUser.getUid()).child("Report").child(ConvertDate(date)).child("Hobby").setValue(hobby1);
+        mDatabase.child("Profile").child(currentUser.getUid()).child("Report").child(ConvertDate(date)).child("Finally").setValue(difference);
+        mDatabase.child("Profile").child(currentUser.getUid()).child("Report").child(ConvertDate(date)).child("Today").setValue(total);
+
+
+
+        if(difference<=0){
             head.setImageDrawable(getResources().getDrawable(R.drawable.h7));
         } else if(difference>0 && difference<=2){
             head.setImageDrawable(getResources().getDrawable(R.drawable.h6));
@@ -477,6 +596,116 @@ public class HomeFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
             head.setImageDrawable(getResources().getDrawable(R.drawable.h2));
         } else if(difference>10 && difference<=12){
             head.setImageDrawable(getResources().getDrawable(R.drawable.h1));
+        }
+    }
+
+    public String ConvertDate(Date date) {
+
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        String s = df.format(date);
+        String result = s;
+        try {
+            date = df.parse(result);
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return s;
+    }
+
+    public String checksleep(Integer sleep) {
+        if (sleep == 0) {
+            return "3 Hours or less";
+        } else if (sleep > 0 && sleep <= 15) {
+            return "4-5 Hours";
+        } else if (sleep > 15 && sleep <= 30) {
+            return "6-7 Hours";
+        } else if (sleep > 30 && sleep <= 45) {
+            return "8-9 Hours";
+        } else if (sleep > 45 && sleep <= 60) {
+            return "10 Hours or more";
+        } else {
+            return "3 Hours or less";
+        }
+    }
+
+    public String checkexercise(Integer exercise) {
+        if (exercise == 0) {
+            return "0 Minutes";
+        } else if (exercise > 0 && exercise <= 15) {
+            return "20 Minutes";
+        } else if (exercise > 15 && exercise <= 30) {
+            return "40 Minutes";
+        } else if (exercise > 30 && exercise <= 45) {
+            return "60 Minutes";
+        } else if (exercise > 45 && exercise <= 60) {
+            return "80 Minutes or more";
+        } else {
+            return "0 Minutes";
+        }
+    }
+
+    public String checkmeditation(Integer meditation) {
+        if (meditation == 0) {
+            return "0 Minutes";
+        } else if (meditation > 0 && meditation <= 15) {
+            return "1-5 Minutes";
+        } else if (meditation > 15 && meditation <= 30) {
+            return "6-10 Minutes";
+        } else if (meditation > 30 && meditation <= 45) {
+            return "11-15 Minutes";
+        } else if (meditation > 45 && meditation <= 60) {
+            return "16 Minutes or more";
+        } else {
+            return "0 Minutes";
+        }
+    }
+
+    public String checksocial(Integer social) {
+        if (social == 0) {
+            return "0 Minutes";
+        } else if (social > 0 && social <= 15) {
+            return "15 Minutes";
+        } else if (social > 15 && social <= 30) {
+            return "30 Minutes";
+        } else if (social > 30 && social <= 45) {
+            return "60 Minutes";
+        } else if (social > 45 && social <= 60) {
+            return "90 Minutes or more";
+        } else {
+            return "0 Minutes";
+        }
+    }
+
+    public String checkwater(Integer water) {
+        if (water == 0) {
+            return "0 Minutes";
+        } else if (water > 0 && water <= 15) {
+            return "1-3 Glasses";
+        } else if (water > 15 && water <= 30) {
+            return "4-6 Glasses";
+        } else if (water > 30 && water <= 45) {
+            return "7-9 Glasses";
+        } else if (water > 45 && water <= 60) {
+            return "10 Glasses or more";
+        } else {
+            return "0 Minutes";
+        }
+    }
+
+    public String checkhobby(Integer hobby) {
+        if (hobby == 0) {
+            return "0 Minutes";
+        } else if (hobby > 0 && hobby <= 15) {
+            return "15 Minutes";
+        } else if (hobby > 15 && hobby <= 30) {
+            return "30 Minutes";
+        } else if (hobby > 30 && hobby <= 45) {
+            return "45 Minutes";
+        } else if (hobby > 45 && hobby <= 60) {
+            return "60 Minutes or more";
+        } else {
+            return "0 Minutes";
         }
     }
 }

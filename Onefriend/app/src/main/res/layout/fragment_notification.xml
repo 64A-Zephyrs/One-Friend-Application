@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
+        android:background="@color/white"
 
         >
 
@@ -92,12 +93,13 @@
 
         <TextView
             android:id="@+id/textView8"
-            android:layout_width="230dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="27dp"
-            android:text="Are you feeling stressed today?"
-            android:textSize="30dp"
+            android:gravity="center"
 
+            android:textSize="23dp"
+            android:text="FEEL STRESSED TODAY?"
             android:layout_above="@+id/yes"
             android:layout_centerHorizontal="true" />
 

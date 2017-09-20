@@ -1,6 +1,10 @@
 package com.zephyrs.android.onefriend;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -19,6 +23,8 @@ import android.widget.TimePicker;
 import android.widget.ViewFlipper;
 
 import java.lang.reflect.Field;
+import java.util.Calendar;
+import java.util.Locale;
 
 
 /**
@@ -57,6 +63,7 @@ public class IntroductionPage extends AppCompatActivity implements GestureDetect
         skip3= (Button) findViewById(R.id.skip3);
         set_timepicker_text_colour(timepicker);
         detector = new GestureDetector(this);
+
         animations[0] = AnimationUtils.loadAnimation(this
                 , R.anim.left_in);
         animations[1] = AnimationUtils.loadAnimation(this
@@ -88,6 +95,19 @@ public class IntroductionPage extends AppCompatActivity implements GestureDetect
             public void onClick(View view) {
                 viewFlipper.setInAnimation(animations[0]);
                 viewFlipper.setOutAnimation(animations[1]);
+
+
+                int hour=timepicker.getHour();
+                int min=timepicker.getMinute();
+                setnotification(hour,min);
+
+                SharedPreferences settings = getBaseContext().getSharedPreferences("previousstress", 0);
+                SharedPreferences.Editor editor = settings.edit();
+                editor.putString("hour", String.valueOf(hour));
+                editor.putString("min", String.valueOf(min));
+                editor.putString("turn", "on");
+                editor.commit();
+
                 Intent testintent = new Intent(IntroductionPage.this,BottomBar.class);
                 startActivity(testintent);
                 overridePendingTransition(R.anim.fade, R.anim.hold);
@@ -255,4 +275,34 @@ if(viewFlipper.getDisplayedChild()==0){
         }
     }
 
+    public void setnotification(int hour,int min){
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent notificationIntent = new Intent("android.media.action.DISPLAY_NOTIFICATION");
+        notificationIntent.addCategory("android.intent.category.DEFAULT");
+        PendingIntent broadcast = PendingIntent.getBroadcast(this, 100, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        Calendar cal = Calendar.getInstance(Locale.getDefault());
+        cal.setTimeInMillis(System.currentTimeMillis());
+        cal.set(Calendar.HOUR_OF_DAY, hour);
+        cal.set(Calendar.MINUTE, min);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        Intent intent = new Intent();
+        intent.setAction("testalarm0");
+//        PendingIntent pendingIntent=PendingIntent.getBroadcast(getBaseContext(),0, intent,PendingIntent.FLAG_CANCEL_CURRENT);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,cal.getTimeInMillis(),AlarmManager.INTERVAL_DAY,broadcast);
+    }
+
+
+    public  String convert(String ampm){
+        if(ampm.contains("am")){
+            ampm=ampm.substring(0,ampm.length()-2);
+        }else if(ampm.contains("pm")){
+            ampm=ampm.substring(0,ampm.length()-2);
+            int hour=Integer.parseInt(ampm.split(":")[0]);
+            if(hour<12){
+                ampm=(hour+12)+":"+ampm.split(":")[1];
+            }
+        }
+        return ampm;
+    }
 }

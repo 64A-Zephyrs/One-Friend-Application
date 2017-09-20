@@ -2,55 +2,174 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
     tools:context="com.zephyrs.android.onefriend.BottomBar">
 
     <!-- TODO: Update blank fragment layout -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
-<LinearLayout
+<ScrollView
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:paddingTop="30dp"
-    android:gravity="center"
-    >
-
-    <TextView
-        android:id="@+id/textView8"
+    android:layout_height="wrap_content">
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginBottom="27dp"
-        android:text="Developing Later..."
-        android:textSize="30dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        >
 
-        android:layout_above="@+id/yes"
-        android:layout_centerHorizontal="true" />
-    <!--<Button-->
-        <!--android:id="@+id/button15"-->
-        <!--android:layout_width="80dp"-->
-        <!--android:layout_height="80dp"-->
-        <!--android:background="@mipmap/user"-->
-        <!--/>-->
-    <!--</LinearLayout>-->
-    <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:orientation="vertical"-->
-        <!--android:paddingTop="50dp"-->
-        <!--&gt;-->
-    <!--<Button-->
-        <!--android:id="@+id/introduction"-->
-        <!--android:layout_width="200dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:background="@drawable/question_click"-->
-        <!--android:text="Introduction Page"-->
-        <!--android:textAllCaps="false"-->
-        <!--android:textColor="@drawable/question_text_click" />-->
-</LinearLayout>
-</LinearLayout>
+
+        <ImageView
+            android:id="@+id/userphoto"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="17dp"
+            android:layout_marginTop="44dp"
+            android:src="@mipmap/user" />
+
+        <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="550dp"
+        android:background="@drawable/setting">
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="240dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true">
+
+            <TextView
+                android:id="@+id/user"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/linearLayout3"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="User"
+                android:textColor="@color/bg"
+                android:textSize="23dp" />
+
+            <TextView
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/yes"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Email"
+                android:textColor="@color/bg"
+                android:textSize="18dp" />
+
+            <Button
+                android:id="@+id/feekback"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
+                android:layout_above="@+id/log_out"
+                android:layout_alignParentStart="true"
+                android:layout_gravity="center"
+                android:background="@drawable/settingbar"
+                android:text="Feekback"
+                android:textAllCaps="false" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:background="@drawable/settingbar2"
+                >
+            <Switch
+                android:id="@+id/switch1"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:paddingLeft="40dp"
+                android:background="#00000000"
+                android:text="Notification" />
+            </RelativeLayout>
+            <Button
+                android:id="@+id/setNotification"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_above="@+id/log_out"
+                android:layout_alignParentStart="true"
+                android:layout_gravity="center"
+                android:background="@drawable/settingbar"
+                android:text="Set your reminder"
+                android:visibility="gone"
+                android:textAllCaps="false" />
+            <Button
+                android:id="@+id/tour"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_above="@+id/log_out"
+                android:layout_alignParentStart="true"
+                android:layout_gravity="center"
+                android:background="@drawable/settingbar"
+                android:text="Tour"
+                android:textAllCaps="false" />
+            <Button
+                android:id="@+id/disclaimer"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_above="@+id/log_out"
+                android:layout_alignParentStart="true"
+                android:layout_gravity="center"
+                android:background="@drawable/settingbar"
+                android:text="Disclaimer"
+                android:textAllCaps="false" />
+            <Button
+                android:id="@+id/about"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_above="@+id/log_out"
+                android:layout_alignParentStart="true"
+                android:layout_gravity="center"
+                android:background="@drawable/settingbar"
+                android:text="About"
+                android:textAllCaps="false" />
+            <Button
+                android:id="@+id/report"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_above="@+id/log_out"
+                android:layout_alignParentStart="true"
+                android:layout_gravity="center"
+                android:background="@drawable/settingbar"
+                android:text="PDF Report"
+                android:textAllCaps="false" />
+            <Button
+                android:id="@+id/log_out"
+                android:layout_width="150dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/userphoto"
+                android:layout_gravity="center"
+                android:background="@drawable/done_click"
+                android:text="Log OUt"
+                android:textColor="@drawable/done_text_click"
+                android:textAllCaps="false" />
+            <TextView
+                android:id="@+id/hehe"
+                android:layout_width="150dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/userphoto"
+                android:layout_gravity="center"
+                android:backgroundTint="#00000000"
+                android:textAllCaps="false" />
+
+        </LinearLayout>
+    </RelativeLayout>
+</ScrollView>
 </FrameLayout>

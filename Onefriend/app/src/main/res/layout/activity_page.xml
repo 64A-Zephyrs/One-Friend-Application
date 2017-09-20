@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/title_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="23dp"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:text="TRY THESE ACTIVITIES"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        >
+
+        <Button
+            android:id="@+id/sport_view"
+            android:layout_width="180dp"
+            android:layout_height="230dp"
+            android:paddingTop="130dp"
+            android:text="sports"
+            android:background="@drawable/a1"
+          />
+
+
+        <Button
+            android:id="@+id/meditation_view"
+            android:layout_width="180dp"
+            android:layout_height="230dp"
+            android:paddingTop="130dp"
+            android:text="Meditation"
+            android:background="@drawable/a2"
+             />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
+
+        <Button
+            android:id="@+id/event_view"
+            android:layout_width="180dp"
+            android:layout_height="230dp"
+            android:paddingTop="130dp"
+            android:text="events"
+            android:background="@drawable/a3"
+            />
+
+
+        <Button
+            android:id="@+id/help_view"
+            android:layout_width="180dp"
+            android:layout_height="230dp"
+            android:paddingTop="130dp"
+            android:text="help"
+            android:background="@drawable/a4"
+            />
+    </LinearLayout>
+
+</LinearLayout>
