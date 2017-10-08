@@ -34,7 +34,6 @@ public class FactCauseofstress extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        // 判断是否能够回退
         super.onBackPressed();
     }
 

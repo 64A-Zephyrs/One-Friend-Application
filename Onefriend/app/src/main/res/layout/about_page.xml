@@ -23,6 +23,20 @@
             />
     </RelativeLayout>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -42,7 +56,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="320dp"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/bg_edittext"
         android:gravity="center_horizontal"
@@ -56,10 +70,9 @@
             android:gravity="center|left"
             android:text="App version"
             android:paddingLeft="10dp"
-            android:layout_weight="1"
             />
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center|right"
             android:text="3.0"
@@ -69,7 +82,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="320dp"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="5dp"
         android:background="@drawable/bg_edittext"
@@ -82,12 +95,11 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center|left"
-            android:text="Algorithm"
+            android:text="Release Date"
             android:paddingLeft="10dp"
-            android:layout_weight="1"
             />
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center|right"
             android:text="20.09.17"
@@ -97,10 +109,10 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:layout_width="320dp"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="5dp"
-        android:background="@drawable/bg_edittext"
+        android:background="@drawable/setting_click"
         android:gravity="center_horizontal"
         android:layout_gravity="center_horizontal"
         android:orientation="horizontal"
@@ -108,26 +120,34 @@
 
         <Button
             android:id="@+id/about"
-            android:layout_width="320dp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center|left"
             android:text="About us"
+            android:textAllCaps="false"
             android:background="#00000000"
             android:paddingLeft="10dp"
-            android:layout_weight="1"
-            />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center|right"
-            android:text=">"
-            android:textStyle="bold"
-            android:textSize="20dp"
-            android:paddingRight="10dp"
-            android:layout_weight="1"
-            android:layout_alignParentTop="true"
+            />
+<LinearLayout
+    android:layout_width="40dp"
+    android:layout_height="40dp"
+    android:layout_centerVertical="true"
+    android:layout_alignParentEnd="true">
+        <Button
+            android:id="@+id/select_disclaimer"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@mipmap/select"
+            android:textAllCaps="false"
+            android:layout_gravity="center"
+            android:layout_alignBaseline="@+id/about"
+            android:layout_alignBottom="@+id/about"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="13dp" />
+          />
+</LinearLayout>
     </RelativeLayout>
+    </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
 </LinearLayout>

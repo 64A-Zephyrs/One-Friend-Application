@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.content.FileProvider;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.google.gson.Gson;
@@ -22,6 +23,7 @@ import java.util.List;
  */
 // android:src = "@drawable/ic_launcher_round"
 public class lvWithButtonExt extends ListActivity {
+    Button back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +31,15 @@ public class lvWithButtonExt extends ListActivity {
 
         // 关联Layout中的ListView
         ListView vncListView = (ListView)findViewById(android.R.id.list);
+        back = (Button)findViewById(R.id.back_button);
 
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+                overridePendingTransition(R.anim.fade, R.anim.hold);
+            }
+        });
         // 生成动态数组，加入数据
         ArrayList<HashMap<String, Object>> remoteWindowItem = new ArrayList<HashMap<String, Object>>();
         int[] dataCell = new int[] {R.id.ItemWinName,R.id.ItemCloseWin};

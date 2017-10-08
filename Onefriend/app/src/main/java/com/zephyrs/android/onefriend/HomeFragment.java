@@ -344,8 +344,6 @@ public class HomeFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
-
         if (mSeekBar1.getProgress() == 0){
 //            sleep.setText("3 Hours or less");
             sleep.setText(mSeekBar1.getProgress()+" Hour");
@@ -366,11 +364,15 @@ public class HomeFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
 //            sleep.setText("8-9 Hours");
             sleep.setText(mSeekBar1.getProgress()+" Hours");
                 score = score + 3;
-            } else if (mSeekBar1.getProgress() >= 9 && mSeekBar1.getProgress() <= 10) {
+            } else if (mSeekBar1.getProgress() >= 9 && mSeekBar1.getProgress() < 10) {
 //            sleep.setText("10 Hours or more");
             sleep.setText(mSeekBar1.getProgress()+" Hours");
                 score = score + 4;
-            }
+            } else if (mSeekBar1.getProgress() == 10) {
+//            sleep.setText("10 Hours or more");
+            sleep.setText(mSeekBar1.getProgress()+" Hours or more");
+            score = score + 4;
+        }
 
         if (mSeekBar2.getProgress() == 0){
 //            exercise.setText("0 Minutes");
@@ -392,11 +394,15 @@ public class HomeFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
             exercise.setText(mSeekBar2.getProgress()+" Minutes");
 //            exercise.setText("60 Minutes");
                 score = score + 3;
-            }else if(mSeekBar2.getProgress() >40 && mSeekBar2.getProgress()<=60){
+            }else if(mSeekBar2.getProgress() >40 && mSeekBar2.getProgress()<60){
             exercise.setText(mSeekBar2.getProgress()+" Minutes");
 //            exercise.setText("80 Minutes or more");
                 score = score + 4;
-            }
+            }else if(mSeekBar2.getProgress()==60){
+            exercise.setText(mSeekBar2.getProgress()+" Minutes or more");
+//            exercise.setText("80 Minutes or more");
+            score = score + 4;
+        }
 
 
         if (mSeekBar3.getProgress() == 0){
@@ -417,11 +423,15 @@ public class HomeFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
 //            meditation.setText("11-15 Minutes");
             meditation.setText(mSeekBar3.getProgress()+" Minutes");
                 score = score + 3;
-            }else if(mSeekBar3.getProgress() >11 && mSeekBar2.getProgress()<=15){
+            }else if(mSeekBar3.getProgress() >11 && mSeekBar3.getProgress()<15){
 //            meditation.setText("16 Minutes or more");
             meditation.setText(mSeekBar3.getProgress()+" Minutes");
                 score = score + 4;
-            }
+            }else if(mSeekBar3.getProgress()==15){
+//            meditation.setText("16 Minutes or more");
+            meditation.setText(mSeekBar3.getProgress()+" Minutes or more");
+            score = score + 4;
+        }
 
         if (mSeekBar4.getProgress() == 0){
 //            social.setText("0 Minutes");
@@ -443,11 +453,15 @@ public class HomeFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
 //            social.setText("60 Minutes");
             social.setText(mSeekBar4.getProgress()+" Minutes");
                 score = score + 3;
-            }else if(mSeekBar4.getProgress() >64 && mSeekBar4.getProgress()<=90){
+            }else if(mSeekBar4.getProgress() >64 && mSeekBar4.getProgress()<90){
 //            social.setText("90 Minutes or more");
             social.setText(mSeekBar4.getProgress()+" Minutes");
                 score = score + 4;
-            }
+            }else if(mSeekBar4.getProgress()==90){
+//            social.setText("90 Minutes or more");
+            social.setText(mSeekBar4.getProgress()+" Minutes or more");
+            score = score + 4;
+        }
 
         if (mSeekBar5.getProgress() == 0){
             water.setText(mSeekBar5.getProgress()+" Glass");
@@ -467,11 +481,15 @@ public class HomeFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
 //            water.setText("7-9 Glasses");
             water.setText(mSeekBar5.getProgress()+" Glasses");
                 score = score + 3;
-            }else if(mSeekBar5.getProgress() >8 && mSeekBar5.getProgress()<=10){
+            }else if(mSeekBar5.getProgress() >8 && mSeekBar5.getProgress()<10){
 //            water.setText("10 Glasses or more");
             water.setText(mSeekBar5.getProgress()+" Glasses");
                 score = score + 4;
-            }
+            }else if(mSeekBar5.getProgress()==10){
+//            water.setText("10 Glasses or more");
+            water.setText(mSeekBar5.getProgress()+" Glasses or more");
+            score = score + 4;
+        }
 
         if (mSeekBar6.getProgress() == 0){
             hobby.setText(mSeekBar6.getProgress()+" Minute");
@@ -493,11 +511,15 @@ public class HomeFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
             hobby.setText(mSeekBar6.getProgress()+" Minutes");
 //            hobby.setText("45 Minutes");
                 score = score + 3;
-            }else if(mSeekBar6.getProgress() >55 && mSeekBar6.getProgress()<=70){
+            }else if(mSeekBar6.getProgress() >55 && mSeekBar6.getProgress()<70){
             hobby.setText(mSeekBar6.getProgress()+" Minutes");
 //            hobby.setText("60 Minutes or more");
                 score = score + 4;
-            }
+            }else if(mSeekBar6.getProgress()==70){
+            hobby.setText(mSeekBar6.getProgress()+" Minutes or more");
+//            hobby.setText("60 Minutes or more");
+            score = score + 4;
+        }
         checkchangehead();
         score =0;
     }
@@ -537,35 +559,52 @@ public class HomeFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
         String social1;
         String water1;
         String hobby1;
+
+
         if(mSeekBar1.getProgress() ==0){
             sleep1 = mSeekBar1.getProgress()+" Hour";
-        } else{
+        } else if(mSeekBar1.getProgress()>0 && mSeekBar1.getProgress()<10){
             sleep1 = mSeekBar1.getProgress()+" Hours";
+        } else {
+            sleep1 = mSeekBar1.getProgress()+" Hours or more";
         }
+
         if(mSeekBar2.getProgress() ==0){
             exercise1 = mSeekBar2.getProgress()+" Minute";
-        } else{
+        } else if(mSeekBar2.getProgress()>0 && mSeekBar2.getProgress()<60){
             exercise1 = mSeekBar2.getProgress()+" Minutes";
+        } else{
+            exercise1 = mSeekBar2.getProgress()+" Minutes or more";
         }
+
         if(mSeekBar3.getProgress() ==0){
             meditation1 = mSeekBar3.getProgress()+" Minute";
-        } else{
+        } else if(mSeekBar3.getProgress()>0 && mSeekBar3.getProgress()<15){
             meditation1 = mSeekBar3.getProgress()+" Minutes";
+        } else{
+            meditation1 = mSeekBar3.getProgress()+" Minutes or more";
         }
+
         if(mSeekBar4.getProgress() ==0){
             social1 = mSeekBar4.getProgress()+" Minute";
-        } else{
+        } else if(mSeekBar4.getProgress()>0 && mSeekBar4.getProgress()<90){
             social1 = mSeekBar4.getProgress()+" Minutes";
+        } else{
+            social1 = mSeekBar4.getProgress()+" Minutes or more";
         }
         if(mSeekBar5.getProgress() ==0){
             water1 = mSeekBar5.getProgress()+" Glasse";
-        } else{
+        } else if(mSeekBar5.getProgress()>0 && mSeekBar5.getProgress()<10){
             water1 = mSeekBar5.getProgress()+" Glasses";
+        } else {
+            water1 = mSeekBar5.getProgress()+" Glasses or more";
         }
         if(mSeekBar6.getProgress() ==0){
             hobby1 = mSeekBar6.getProgress()+" Minute";
-        } else{
+        } else if(mSeekBar6.getProgress()>0 && mSeekBar6.getProgress() <70){
             hobby1 = mSeekBar6.getProgress()+" Minutes";
+        } else {
+            hobby1 = mSeekBar6.getProgress()+" Minutes or more";
         }
 
         Date date = new Date();

@@ -1,62 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:backgroundTint="#17202A"
+        android:id="@+id/relativeLayout">
+
+        <Button
+            android:id="@+id/back_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@mipmap/close"
+            android:backgroundTint="@color/white"
+            android:fontFamily="monospace"
+            android:textAllCaps="false"
+            android:textSize="15dp"
+            android:textStyle="normal" />
+
+    </RelativeLayout>
+
+</LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
     <LinearLayout
         android:id="@+id/appear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:orientation="vertical">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:orientation="horizontal"
-            android:paddingLeft="10dp"
-            android:paddingTop="10dp"
-            android:backgroundTint="#17202A"
-            android:id="@+id/relativeLayout">
-
-            <Button
-                android:id="@+id/back_button"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+            android:layout_height="60dp"
+            android:gravity="center"
+            >
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:background="@mipmap/close"
-                android:backgroundTint="@color/white"
-                android:fontFamily="monospace"
-                android:textAllCaps="false"
-                android:textSize="15dp"
-                android:textStyle="normal" />
-
-        </RelativeLayout>
+                android:layout_below="@+id/button3qe"
+                android:gravity="center"
+                android:textSize="30dp"
+                android:text="FACTS" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/barcharttext"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:gravity="center"
-            android:paddingTop="10dp"
-            android:layout_marginTop="10dp"
             android:text=""
-            android:textColor="@color/bg"
+            android:textColor="@color/white"
             android:layout_marginBottom="5dp"
+            android:background="@color/buttonColor"
             android:textSize="20dp" />
 
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/barchart"
             android:layout_gravity="center"
-            android:layout_width="350dp"
-            android:layout_height="350dp"></com.github.mikephil.charting.charts.BarChart>
+            android:layout_width="match_parent"
+            android:layout_height="300dp"></com.github.mikephil.charting.charts.BarChart>
 
 
         <TextView
@@ -167,5 +190,6 @@
             </RadioGroup>
         </LinearLayout>
     </LinearLayout>
+</RelativeLayout>
     </ScrollView>
 </LinearLayout>

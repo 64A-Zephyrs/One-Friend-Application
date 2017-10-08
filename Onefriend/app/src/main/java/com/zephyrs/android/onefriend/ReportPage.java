@@ -54,6 +54,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -108,12 +109,20 @@ public class ReportPage extends AppCompatActivity implements OnChartValueSelecte
     String Fri;
     String Sat;
     String Sun;
+
     Button download;
+    CombinedChart sleepchart;
+    CombinedChart exercisechart;
+    CombinedChart meditationchart;
+    CombinedChart waterchart;
+    CombinedChart socialchart;
+    CombinedChart hobbychart;
+    CombinedChart totalchart;
     Integer checktimes =  0;
     int heheee = 0;
     int keko = 1;
     TextView dateofreport;
-//    DatabaseReference myRef2;
+    //    DatabaseReference myRef2;
 //    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
     Integer i = 0;
     float hehe;
@@ -125,6 +134,7 @@ public class ReportPage extends AppCompatActivity implements OnChartValueSelecte
     ArrayList<Report> allreport = new ArrayList<>();
     ArrayList<String> alldata = new ArrayList<>();
     String pp;
+
     Adapter madapter;
     ArrayList<String> alllevel = new ArrayList<>();
     float stress; //use for check previous stress level
@@ -132,6 +142,23 @@ public class ReportPage extends AppCompatActivity implements OnChartValueSelecte
     Number number;
     Intent ii = new Intent();
     protected String[] mMonths = new String[] {" ","Mon", "Tue", "Wed", "Thu", "Fri", "Sat","Sun"};
+
+
+    //pdf
+    TextView sleeppdf;
+    TextView exercisepdf;
+    TextView meditationpdf;
+    TextView socialpdf;
+    TextView waterpdf;
+    TextView hobbypdf;
+    ImageButton yesterdaypdf;
+    ImageButton todaypdf;
+    ImageButton currentpdf;
+    TextView currentdatepdf;
+    TextView physicalsymptoms;
+    TextView emotionalsymptoms;
+    TextView cognitivesymptoms;
+    TextView behaviourssymptoms;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -154,6 +181,32 @@ public class ReportPage extends AppCompatActivity implements OnChartValueSelecte
         textview1 = (TextView) findViewById(R.id.textView4);
         changeactivity = (Button) findViewById(R.id.changeactivity);
         download = (Button) findViewById(R.id.download_button);
+        sleepchart = (CombinedChart) findViewById(R.id.chart_sleep);
+        exercisechart = (CombinedChart) findViewById(R.id.chart_exercise);
+        meditationchart = (CombinedChart) findViewById(R.id.chart_meditaion);
+        socialchart = (CombinedChart) findViewById(R.id.chart_social);
+        waterchart = (CombinedChart) findViewById(R.id.chart_water);
+        hobbychart = (CombinedChart) findViewById(R.id.chart_hobby);
+        totalchart = (CombinedChart) findViewById(R.id.chart_total);
+
+//pdf
+        sleeppdf = (TextView) findViewById(R.id.sleep_record_pdf);
+        exercisepdf = (TextView) findViewById(R.id.exercise_record_pdf);
+        meditationpdf = (TextView) findViewById(R.id.meditation_record_pdf);
+        socialpdf = (TextView) findViewById(R.id.social_record_pdf);
+        waterpdf = (TextView) findViewById(R.id.water_record_pdf);
+        hobbypdf = (TextView) findViewById(R.id.hobby_record_pdf);
+        yesterdaypdf = (ImageButton) findViewById(R.id.headyesterday_pdf);
+        todaypdf = (ImageButton) findViewById(R.id.headtoday_pdf);
+        currentpdf = (ImageButton) findViewById(R.id.headcurrent_pdf);
+        currentdatepdf = (TextView) findViewById(R.id.currentdate_pdf);
+        physicalsymptoms = (TextView) findViewById(R.id.physicalresult_pdf);
+        emotionalsymptoms = (TextView) findViewById(R.id.emotionalresult_pdf);
+        cognitivesymptoms = (TextView) findViewById(R.id.cognitiveresult_pdf);
+        behaviourssymptoms = (TextView) findViewById(R.id.behavioursresult_pdf);
+
+
+
 //        email = (Button) findViewById(R.id.email_button);
         SharedPreferences ppstress = getBaseContext().getSharedPreferences("previousstress", 0);
         Mon = ppstress.getString("1","-2");
@@ -163,8 +216,69 @@ public class ReportPage extends AppCompatActivity implements OnChartValueSelecte
         Fri = ppstress.getString("5","-2");
         Sat = ppstress.getString("6","-2");
         Sun = ppstress.getString("7","-2");
-//        testview = (View) findViewById(R.id.hoho);
+
+
         Gson gson = new Gson();
+        String physicaljson = ppstress.getString("physical","");
+        String emotionaljson = ppstress.getString("emotional","");
+        String cognitivejson = ppstress.getString("cognitive","");
+        String behaviourjson = ppstress.getString("behaviours","");
+        String specifictoday = ppstress.getString("specifictoday","");
+        ArrayList<String> physicalsystom = gson.fromJson(physicaljson, new TypeToken<ArrayList<String>>(){}.getType());
+        ArrayList<String> emotionsystom = gson.fromJson(emotionaljson, new TypeToken<ArrayList<String>>(){}.getType());
+        ArrayList<String> cognitivesystom = gson.fromJson(cognitivejson, new TypeToken<ArrayList<String>>(){}.getType());
+        ArrayList<String> behavioursystom = gson.fromJson(behaviourjson, new TypeToken<ArrayList<String>>(){}.getType());
+
+        String physicalresult="";
+        String emotionalresult="";
+        String cognitiveresult="";
+        String behaviourresult="";
+
+
+        Date checkdate = new Date();
+        String checktoday = ConvertDate(checkdate);
+        if(checktoday.equals(specifictoday)){
+            for(int index=0;index<physicalsystom.size();index++){
+                if(index == physicalsystom.size()-1){
+                    physicalresult = physicalresult + physicalsystom.get(index);
+                } else {
+                    physicalresult = physicalresult + physicalsystom.get(index)+"、";
+                }
+            }
+            physicalsymptoms.setText(physicalresult);
+
+            for(int index=0;index<emotionsystom.size();index++){
+                if(index == emotionsystom.size()-1){
+                    emotionalresult = emotionalresult + emotionsystom.get(index);
+                } else {
+                    emotionalresult = emotionalresult + emotionsystom.get(index)+"、";
+                }
+            }
+            emotionalsymptoms.setText(emotionalresult);
+
+            for(int index=0;index<cognitivesystom.size();index++){
+                if(index == cognitivesystom.size()-1){
+                    cognitiveresult = cognitiveresult + cognitivesystom.get(index);
+                } else {
+                    cognitiveresult = cognitiveresult + cognitivesystom.get(index)+"、";
+                }
+            }
+            cognitivesymptoms.setText(cognitiveresult);
+
+            for(int index=0;index<behavioursystom.size();index++){
+                if(index == behavioursystom.size()-1){
+                    behaviourresult = behaviourresult + behavioursystom.get(index);
+                } else {
+                    behaviourresult = behaviourresult + behavioursystom.get(index)+"、";
+                }
+            }
+            behaviourssymptoms.setText(behaviourresult);
+        }
+
+
+
+//        testview = (View) findViewById(R.id.hoho);
+
         for(int index=1;index<8;index++){
             String json = ppstress.getString("SerializableObject"+index, "");
             if(json != ""){
@@ -186,13 +300,15 @@ public class ReportPage extends AppCompatActivity implements OnChartValueSelecte
         dateofreport.setText(specificday);
 
         currentday = specificday;
+        currentdatepdf.setText(specificday);
+        final String checknext = getSpecifiedDayAfter(specificday);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-            onBackPressed();
-            overridePendingTransition(R.anim.fade, R.anim.hold);
+                onBackPressed();
+                overridePendingTransition(R.anim.fade, R.anim.hold);
             }
         });
 
@@ -200,9 +316,11 @@ public class ReportPage extends AppCompatActivity implements OnChartValueSelecte
             @Override
             public void onClick(View v) {
                 String getday = getSpecifiedDayAfter(currentday);
-                dateofreport.setText(getday);
-                getReport(getday);
-                currentday = getday;
+                if(!checknext.equals(getday)){
+                    dateofreport.setText(getday);
+                    getReport(getday);
+                    currentday = getday;
+                }
             }
         });
 
@@ -258,6 +376,10 @@ public class ReportPage extends AppCompatActivity implements OnChartValueSelecte
         download.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+
+
 //                final PdfDocument doc = new PdfDocument();
 //                DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
 //                //Create A4 sized PDF page
@@ -279,9 +401,11 @@ public class ReportPage extends AppCompatActivity implements OnChartValueSelecte
 //                    doc.finishPage(page);
 //                }
 
+
                 DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
                 boolean boolean_save;
                 Resources mResources = getResources();
+
                 View content = findViewById(R.id.pdfchart);
 //                Bitmap bitmap = Bitmap.createBitmap(content.getWidth(), content.getHeight(), Bitmap.Config.ARGB_8888);
 ////                Canvas canvas = new Canvas(bitmap);
@@ -309,20 +433,25 @@ public class ReportPage extends AppCompatActivity implements OnChartValueSelecte
                 editor.putString("allpdf", allpdf);
                 editor.commit();
 
-
-
                 PdfDocument document = new PdfDocument();
                 int mPageCount = 2;
 
-                for(int i=0;i<mPageCount;i++) {
+                for(int i=0;i<5;i++) {
                     PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(displayMetrics.widthPixels, displayMetrics.heightPixels, 9).create();
                     PdfDocument.Page page = document.startPage(pageInfo);
                     if(i==0){
-                        content = findViewById(R.id.pdfchart);
+                        content = findViewById(R.id.page1);
                     } else if(i==1) {
-                        content = findViewById(R.id.pdfday);
+                        content = findViewById(R.id.page2);
+                    } else if(i==2) {
+                        content = findViewById(R.id.page3);
+                    } else if(i==3) {
+                        content = findViewById(R.id.page4);
+                    } else if(i==4) {
+                        content = findViewById(R.id.page5);
                     }
-                    changeactivity.callOnClick();
+//                    changeactivity.callOnClick();
+//                    changeactivity.callOnClick();
                     Canvas canvas = page.getCanvas();
                     Paint paint = new Paint();
                     paint.setColor(Color.parseColor("#ffffff"));
@@ -361,28 +490,28 @@ public class ReportPage extends AppCompatActivity implements OnChartValueSelecte
                 // close the document
                 document.close();
 
-                            try
-                            {
-                                //Open the PDF
-                                Intent intent = new Intent(Intent.ACTION_VIEW);
-                                Uri photoURI = FileProvider.getUriForFile(getBaseContext(), getBaseContext().getApplicationContext().getPackageName() + ".my.package.name.provider", file);
-                                intent.setDataAndType(photoURI, "application/pdf");
-                                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                try
+                {
+                    //Open the PDF
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    Uri photoURI = FileProvider.getUriForFile(getBaseContext(), getBaseContext().getApplicationContext().getPackageName() + ".my.package.name.provider", file);
+                    intent.setDataAndType(photoURI, "application/pdf");
+                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 //                    intent.putExtra("crop", "true");
 //                    intent.putExtra("outputX", 80);
 //                    intent.putExtra("outputY", 80);
 //                    intent.putExtra("return-data", false);
 //                    intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                                startActivity(intent);
-                            }
-                            catch(Exception e)
-                            {
+                    startActivity(intent);
+                }
+                catch(Exception e)
+                {
 
-                            }
-
-
+                }
 
 
+//                Intent testintent = new Intent(getBaseContext(), DownLoad.class);
+//                startActivity(testintent);
 
 
 //                File root = getFilesDir();
@@ -518,7 +647,7 @@ public class ReportPage extends AppCompatActivity implements OnChartValueSelecte
             }
         });
 
-        
+
 
         changeactivity.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -528,99 +657,7 @@ public class ReportPage extends AppCompatActivity implements OnChartValueSelecte
                     checktimes = 0;
                 }
                 checktimes = checktimes + 1;
-                if(checktimes == 1) {
-                    changeactivity.setText("Sleep");
-                    generatecombinechart(
-                            Float.valueOf(allreport.get(0).Sleep.substring(0, allreport.get(0).Sleep.indexOf(" "))),
-                            Float.valueOf(allreport.get(1).Sleep.substring(0, allreport.get(0).Sleep.indexOf(" "))),
-                            Float.valueOf(allreport.get(2).Sleep.substring(0, allreport.get(0).Sleep.indexOf(" "))),
-                            Float.valueOf(allreport.get(3).Sleep.substring(0, allreport.get(0).Sleep.indexOf(" "))),
-                            Float.valueOf(allreport.get(4).Sleep.substring(0, allreport.get(0).Sleep.indexOf(" "))),
-                            Float.valueOf(allreport.get(5).Sleep.substring(0, allreport.get(0).Sleep.indexOf(" "))),
-                            Float.valueOf(allreport.get(6).Sleep.substring(0, allreport.get(0).Sleep.indexOf(" "))),
-                            Float.valueOf(ms1),"Sleep (Hours)",
-                            "#ffcc65"
-
-                    );
-                }
-                if(checktimes == 2) {
-                    changeactivity.setText("Exercise");
-                    generatecombinechart(
-                            Float.valueOf(allreport.get(0).Exercise.substring(0, allreport.get(0).Exercise.indexOf(" "))),
-                            Float.valueOf(allreport.get(1).Exercise.substring(0, allreport.get(0).Exercise.indexOf(" "))),
-                            Float.valueOf(allreport.get(2).Exercise.substring(0, allreport.get(0).Exercise.indexOf(" "))),
-                            Float.valueOf(allreport.get(3).Exercise.substring(0, allreport.get(0).Exercise.indexOf(" "))),
-                            Float.valueOf(allreport.get(4).Exercise.substring(0, allreport.get(0).Exercise.indexOf(" "))),
-                            Float.valueOf(allreport.get(5).Exercise.substring(0, allreport.get(0).Exercise.indexOf(" "))),
-                            Float.valueOf(allreport.get(6).Exercise.substring(0, allreport.get(0).Exercise.indexOf(" "))),
-                            Float.valueOf(ms2),"Exercise (Minutes)",
-                            "#f57f76"
-                    );
-                }
-                if(checktimes == 3) {
-                    changeactivity.setText("Meditation");
-                    generatecombinechart(
-                            Float.valueOf(allreport.get(0).Meditation.substring(0, allreport.get(0).Meditation.indexOf(" "))),
-                            Float.valueOf(allreport.get(1).Meditation.substring(0, allreport.get(0).Meditation.indexOf(" "))),
-                            Float.valueOf(allreport.get(2).Meditation.substring(0, allreport.get(0).Meditation.indexOf(" "))),
-                            Float.valueOf(allreport.get(3).Meditation.substring(0, allreport.get(0).Meditation.indexOf(" "))),
-                            Float.valueOf(allreport.get(4).Meditation.substring(0, allreport.get(0).Meditation.indexOf(" "))),
-                            Float.valueOf(allreport.get(5).Meditation.substring(0, allreport.get(0).Meditation.indexOf(" "))),
-                            Float.valueOf(allreport.get(6).Meditation.substring(0, allreport.get(0).Meditation.indexOf(" "))),
-                            Float.valueOf(ms3),"Meditation (Minutes)",
-                            "#2DE3AC"
-                    );
-                }
-                if(checktimes == 4) {
-                    changeactivity.setText("Social");
-                    generatecombinechart(
-                            Float.valueOf(allreport.get(0).Social.substring(0, allreport.get(0).Social.indexOf(" "))),
-                            Float.valueOf(allreport.get(1).Social.substring(0, allreport.get(0).Social.indexOf(" "))),
-                            Float.valueOf(allreport.get(2).Social.substring(0, allreport.get(0).Social.indexOf(" "))),
-                            Float.valueOf(allreport.get(3).Social.substring(0, allreport.get(0).Social.indexOf(" "))),
-                            Float.valueOf(allreport.get(4).Social.substring(0, allreport.get(0).Social.indexOf(" "))),
-                            Float.valueOf(allreport.get(5).Social.substring(0, allreport.get(0).Social.indexOf(" "))),
-                            Float.valueOf(allreport.get(6).Social.substring(0, allreport.get(0).Social.indexOf(" "))),
-                            Float.valueOf(ms4),"Social (Minutes)",
-                            "#8B2DE3"
-                    );
-                }
-                if(checktimes == 5) {
-                    changeactivity.setText("Water");
-                    generatecombinechart(
-                            Float.valueOf(allreport.get(0).Water.substring(0, allreport.get(0).Water.indexOf(" "))),
-                            Float.valueOf(allreport.get(1).Water.substring(0, allreport.get(0).Water.indexOf(" "))),
-                            Float.valueOf(allreport.get(2).Water.substring(0, allreport.get(0).Water.indexOf(" "))),
-                            Float.valueOf(allreport.get(3).Water.substring(0, allreport.get(0).Water.indexOf(" "))),
-                            Float.valueOf(allreport.get(4).Water.substring(0, allreport.get(0).Water.indexOf(" "))),
-                            Float.valueOf(allreport.get(5).Water.substring(0, allreport.get(0).Water.indexOf(" "))),
-                            Float.valueOf(allreport.get(6).Water.substring(0, allreport.get(0).Water.indexOf(" "))),
-                            Float.valueOf(ms5),"Water (Glasses)",
-                            "#EB4160"
-                    );
-                }
-                if(checktimes == 6) {
-                    changeactivity.setText("Hobby");
-                    generatecombinechart(
-                            Float.valueOf(allreport.get(0).Hobby.substring(0, allreport.get(0).Hobby.indexOf(" "))),
-                            Float.valueOf(allreport.get(1).Hobby.substring(0, allreport.get(0).Hobby.indexOf(" "))),
-                            Float.valueOf(allreport.get(2).Hobby.substring(0, allreport.get(0).Hobby.indexOf(" "))),
-                            Float.valueOf(allreport.get(3).Hobby.substring(0, allreport.get(0).Hobby.indexOf(" "))),
-                            Float.valueOf(allreport.get(4).Hobby.substring(0, allreport.get(0).Hobby.indexOf(" "))),
-                            Float.valueOf(allreport.get(5).Hobby.substring(0, allreport.get(0).Hobby.indexOf(" "))),
-                            Float.valueOf(allreport.get(6).Hobby.substring(0, allreport.get(0).Hobby.indexOf(" "))),
-                            Float.valueOf(ms6), "Hobbies (Minutes)",
-                            "#F9ED2C"
-                    );
-                }
-                if(checktimes == 7) {
-                    changeactivity.setText("Total");
-                    generatecombinecharttotal();
-                }
-
-
-
-
+                createcombinechart(mChart,checktimes);
             }
         });
 
@@ -671,16 +708,21 @@ public class ReportPage extends AppCompatActivity implements OnChartValueSelecte
 
 
 
-        generatecombinechart(0,0,0,0,0,0,0,0,"","#00000000");
-
-
+        generatecombinechart(mChart,0,0,0,0,0,0,0,0,"","#00000000");
+        createcombinechart(sleepchart,1);
+        createcombinechart(exercisechart,2);
+        createcombinechart(meditationchart,3);
+        createcombinechart(socialchart,4);
+        createcombinechart(waterchart,5);
+        createcombinechart(hobbychart,6);
+        createcombinechart(totalchart,7);
     }
 
 
 
     private void createPdf2(){
         boolean boolean_save;
-                Resources mResources = getResources();
+        Resources mResources = getResources();
         Bitmap bitmap = BitmapFactory.decodeResource(mResources, R.id.head1);
         WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
@@ -800,9 +842,9 @@ public class ReportPage extends AppCompatActivity implements OnChartValueSelecte
             }
             os =  new FileOutputStream(mPdfFile);
             document.writeTo(os);
-        
+
         } catch (IOException e) {
-     
+
             e.printStackTrace();
         }finally{
             document.close();
@@ -814,7 +856,7 @@ public class ReportPage extends AppCompatActivity implements OnChartValueSelecte
         }
     }
 
-    public void generatecombinechart(final float mon, final float tue, final float wed, final float thu, final float fri, final float sat, final float sun, final float week, final String activity,final String barcolor){
+    public void generatecombinechart(final CombinedChart cChart, final float mon, final float tue, final float wed, final float thu, final float fri, final float sat, final float sun, final float week, final String activity, final String barcolor){
         new AsyncTask<String, Void, String>() {
             @Override
             protected String doInBackground(String... params) {
@@ -823,23 +865,23 @@ public class ReportPage extends AppCompatActivity implements OnChartValueSelecte
 
             @Override
             protected void onPostExecute(String courses) {
-                mChart.setDragEnabled(false);
-                mChart.setTouchEnabled(false);
-                mChart.getDescription().setText(" ");
-                mChart.setHighlightFullBarEnabled(true);
-                mChart.setDrawOrder(new CombinedChart.DrawOrder[]{
+                cChart.setDragEnabled(false);
+                cChart.setTouchEnabled(false);
+                cChart.getDescription().setText(" ");
+                cChart.setHighlightFullBarEnabled(true);
+                cChart.setDrawOrder(new CombinedChart.DrawOrder[]{
                         CombinedChart.DrawOrder.BAR,CombinedChart.DrawOrder.LINE
                 });
-                mChart.getXAxis().setDrawLabels(true);
-                Legend l = mChart.getLegend();
+                cChart.getXAxis().setDrawLabels(true);
+                Legend l = cChart.getLegend();
                 l.setWordWrapEnabled(true);
                 l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
                 l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
                 l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
-                YAxis rightAxis = mChart.getAxisRight();
+                YAxis rightAxis = cChart.getAxisRight();
                 rightAxis.setDrawGridLines(true);
                 rightAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
-                YAxis leftAxis = mChart.getAxisLeft();
+                YAxis leftAxis = cChart.getAxisLeft();
                 leftAxis.setDrawGridLines(true);
 //
 
@@ -856,8 +898,8 @@ public class ReportPage extends AppCompatActivity implements OnChartValueSelecte
 //                });
 
                 leftAxis.setAxisMinimum(0f);
-                mChart.setDrawGridBackground(false);
-                XAxis xAxis = mChart.getXAxis();
+                cChart.setDrawGridBackground(false);
+                XAxis xAxis = cChart.getXAxis();
                 xAxis.setAxisMinimum(0f);
                 xAxis.setGranularity(1f);
                 xAxis.setDrawGridLines(true);
@@ -890,48 +932,48 @@ public class ReportPage extends AppCompatActivity implements OnChartValueSelecte
                 data.setData(getsingleBarData(mon,tue,wed,thu,fri,sat,sun,week,activity,barcolor));
                 data.setData(generateLineData());
                 xAxis.setAxisMaximum(data.getXMax() + 0.25f);
-                mChart.setData(data);
-                mChart.getAxisRight().setEnabled(false);
-                mChart.getAxisLeft().setEnabled(false);
-                mChart.animateXY(500, 500);
-                mChart.invalidate();
+                cChart.setData(data);
+                cChart.getAxisRight().setEnabled(false);
+                cChart.getAxisLeft().setEnabled(false);
+                cChart.animateXY(500, 500);
+                cChart.invalidate();
             }
         }.execute();
     }
 
     private LineData generateLineData() {
 
-            LineData d = new LineData();
+        LineData d = new LineData();
 
-            final ArrayList<Entry> entries = new ArrayList<Entry>();
-            final Bundle extras = new Bundle();
-            Date datespecific = new Date();
-            stressday = specificday; //current day
-            num = getNumber(getWeek(datespecific));
-            week = num;
-            stress = checkstresslevel(gettoday);
+        final ArrayList<Entry> entries = new ArrayList<Entry>();
+        final Bundle extras = new Bundle();
+        Date datespecific = new Date();
+        stressday = specificday; //current day
+        num = getNumber(getWeek(datespecific));
+        week = num;
+        stress = checkstresslevel(gettoday);
 
-                if(!Mon.equals("-2")){
-                    entries.add(new Entry(1, Float.valueOf(Mon)));
-                }
-                if(!Tue.equals("-2")){
-                    entries.add(new Entry(2, Float.valueOf(Tue)));
-                }
-                if(!Wed.equals("-2")){
-                    entries.add(new Entry(3, Float.valueOf(Wed)));
-                }
-                if(!Thu.equals("-2")){
-                    entries.add(new Entry(4, Float.valueOf(Thu)));
-                }
-                if(!Fri.equals("-2")){
-                    entries.add(new Entry(5, Float.valueOf(Fri)));
-                }
-                if(!Sat.equals("-2")){
-                    entries.add(new Entry(6, Float.valueOf(Sat)));
-                }
-                if(!Sun.equals("-2")){
-                    entries.add(new Entry(7, Float.valueOf(Sun)));
-                }
+        if(!Mon.equals("-2")){
+            entries.add(new Entry(1, Float.valueOf(Mon)));
+        }
+        if(!Tue.equals("-2")){
+            entries.add(new Entry(2, Float.valueOf(Tue)));
+        }
+        if(!Wed.equals("-2")){
+            entries.add(new Entry(3, Float.valueOf(Wed)));
+        }
+        if(!Thu.equals("-2")){
+            entries.add(new Entry(4, Float.valueOf(Thu)));
+        }
+        if(!Fri.equals("-2")){
+            entries.add(new Entry(5, Float.valueOf(Fri)));
+        }
+        if(!Sat.equals("-2")){
+            entries.add(new Entry(6, Float.valueOf(Sat)));
+        }
+        if(!Sun.equals("-2")){
+            entries.add(new Entry(7, Float.valueOf(Sun)));
+        }
 
         entries.add(new Entry(num, stress));
 
@@ -943,90 +985,90 @@ public class ReportPage extends AppCompatActivity implements OnChartValueSelecte
 //        entries.add(new Entry(3, 130));
 
 //        entries.add(new Entry(4, checkstresslevel(gettoday)));
-            LineDataSet set = new LineDataSet(entries, "Stress level");
-            //set.setColor(Color.rgb(240, 238, 70));
-            set.setColors(Color.parseColor("#5DADE2"));
-            set.setLineWidth(2.5f);
-            set.setCircleColor(Color.parseColor("#76D7C4"));
-            set.setCircleRadius(5f);
-            set.setFillColor(Color.parseColor("#a5d079"));
-            set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-            set.setValueTextSize(10f);
-            set.setDrawValues(false);
-            set.setValueTextColor(Color.parseColor("#f57f76"));
-            set.setAxisDependency(YAxis.AxisDependency.LEFT);
-            d.addDataSet(set);
-            return d;
-        }
+        LineDataSet set = new LineDataSet(entries, "Stress level");
+        //set.setColor(Color.rgb(240, 238, 70));
+        set.setColors(Color.parseColor("#5DADE2"));
+        set.setLineWidth(2.5f);
+        set.setCircleColor(Color.parseColor("#76D7C4"));
+        set.setCircleRadius(5f);
+        set.setFillColor(Color.parseColor("#a5d079"));
+        set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        set.setValueTextSize(10f);
+        set.setDrawValues(false);
+        set.setValueTextColor(Color.parseColor("#f57f76"));
+        set.setAxisDependency(YAxis.AxisDependency.LEFT);
+        d.addDataSet(set);
+        return d;
+    }
 
 
     private BarData getBarData() {
         ArrayList<BarEntry> yVals1 = new ArrayList<BarEntry>();
-            yVals1.add(new BarEntry(1, new float[]{
-                    Float.valueOf(allreport.get(0).Sleep.substring(0, allreport.get(0).Sleep.indexOf(" "))),
-                    Float.valueOf(allreport.get(0).Exercise.substring(0, allreport.get(0).Exercise.indexOf(" "))),
-                    Float.valueOf(allreport.get(0).Meditation.substring(0, allreport.get(0).Meditation.indexOf(" "))),
-                    Float.valueOf(allreport.get(0).Social.substring(0, allreport.get(0).Social.indexOf(" "))),
-                    Float.valueOf(allreport.get(0).Water.substring(0, allreport.get(0).Water.indexOf(" "))),
-                    Float.valueOf(allreport.get(0).Hobby.substring(0, allreport.get(0).Hobby.indexOf(" ")))}));
-            yVals1.add(new BarEntry(2, new float[]{
-                    Float.valueOf(allreport.get(1).Sleep.substring(0, allreport.get(1).Sleep.indexOf(" "))),
-                    Float.valueOf(allreport.get(1).Exercise.substring(0, allreport.get(1).Exercise.indexOf(" "))),
-                    Float.valueOf(allreport.get(1).Meditation.substring(0, allreport.get(1).Meditation.indexOf(" "))),
-                    Float.valueOf(allreport.get(1).Social.substring(0, allreport.get(1).Social.indexOf(" "))),
-                    Float.valueOf(allreport.get(1).Water.substring(0, allreport.get(1).Water.indexOf(" "))),
-                    Float.valueOf(allreport.get(1).Hobby.substring(0, allreport.get(1).Hobby.indexOf(" ")))}));
-            yVals1.add(new BarEntry(3, new float[]{
-                    Float.valueOf(allreport.get(2).Sleep.substring(0, allreport.get(2).Sleep.indexOf(" "))),
-                    Float.valueOf(allreport.get(2).Exercise.substring(0, allreport.get(2).Exercise.indexOf(" "))),
-                    Float.valueOf(allreport.get(2).Meditation.substring(0, allreport.get(2).Meditation.indexOf(" "))),
-                    Float.valueOf(allreport.get(2).Social.substring(0, allreport.get(2).Social.indexOf(" "))),
-                    Float.valueOf(allreport.get(2).Water.substring(0, allreport.get(2).Water.indexOf(" "))),
-                    Float.valueOf(allreport.get(2).Hobby.substring(0, allreport.get(2).Hobby.indexOf(" ")))}));
-            yVals1.add(new BarEntry(4, new float[]{
-                    Float.valueOf(allreport.get(3).Sleep.substring(0, allreport.get(3).Sleep.indexOf(" "))),
-                    Float.valueOf(allreport.get(3).Exercise.substring(0, allreport.get(3).Exercise.indexOf(" "))),
-                    Float.valueOf(allreport.get(3).Meditation.substring(0, allreport.get(3).Meditation.indexOf(" "))),
-                    Float.valueOf(allreport.get(3).Social.substring(0, allreport.get(3).Social.indexOf(" "))),
-                    Float.valueOf(allreport.get(3).Water.substring(0, allreport.get(3).Water.indexOf(" "))),
-                    Float.valueOf(allreport.get(3).Hobby.substring(0, allreport.get(3).Hobby.indexOf(" ")))}));
-            yVals1.add(new BarEntry(5, new float[]{
-                    Float.valueOf(allreport.get(4).Sleep.substring(0, allreport.get(4).Sleep.indexOf(" "))),
-                    Float.valueOf(allreport.get(4).Exercise.substring(0, allreport.get(4).Exercise.indexOf(" "))),
-                    Float.valueOf(allreport.get(4).Meditation.substring(0, allreport.get(4).Meditation.indexOf(" "))),
-                    Float.valueOf(allreport.get(4).Social.substring(0, allreport.get(4).Social.indexOf(" "))),
-                    Float.valueOf(allreport.get(4).Water.substring(0, allreport.get(4).Water.indexOf(" "))),
-                    Float.valueOf(allreport.get(4).Hobby.substring(0, allreport.get(4).Hobby.indexOf(" ")))}));
-            yVals1.add(new BarEntry(6, new float[]{
-                    Float.valueOf(allreport.get(5).Sleep.substring(0, allreport.get(5).Sleep.indexOf(" "))),
-                    Float.valueOf(allreport.get(5).Exercise.substring(0, allreport.get(5).Exercise.indexOf(" "))),
-                    Float.valueOf(allreport.get(5).Meditation.substring(0, allreport.get(5).Meditation.indexOf(" "))),
-                    Float.valueOf(allreport.get(5).Social.substring(0, allreport.get(5).Social.indexOf(" "))),
-                    Float.valueOf(allreport.get(5).Water.substring(0, allreport.get(5).Water.indexOf(" "))),
-                    Float.valueOf(allreport.get(5).Hobby.substring(0, allreport.get(5).Hobby.indexOf(" ")))}));
-            yVals1.add(new BarEntry(7, new float[]{
-                    Float.valueOf(allreport.get(6).Sleep.substring(0, allreport.get(6).Sleep.indexOf(" "))),
-                    Float.valueOf(allreport.get(6).Exercise.substring(0, allreport.get(6).Exercise.indexOf(" "))),
-                    Float.valueOf(allreport.get(6).Meditation.substring(0, allreport.get(6).Meditation.indexOf(" "))),
-                    Float.valueOf(allreport.get(6).Social.substring(0, allreport.get(6).Social.indexOf(" "))),
-                    Float.valueOf(allreport.get(6).Water.substring(0, allreport.get(6).Water.indexOf(" "))),
-                    Float.valueOf(allreport.get(6).Hobby.substring(0, allreport.get(6).Hobby.indexOf(" ")))}));
-             yVals1.add(new BarEntry(num, new float[]{ms1, ms2, ms3,ms4,ms5,ms6}));
-            BarDataSet set1 = new BarDataSet(yVals1, " ");
-            ArrayList<Integer> colors = new ArrayList<Integer>();
-            colors.add(Color.parseColor("#76D7C4"));
-            colors.add(Color.parseColor("#ffcc65"));
-            colors.add(Color.parseColor("#f57f76"));
-            colors.add(Color.parseColor("#cde3f2"));
-            colors.add(Color.parseColor("#a5d079"));
-            colors.add(Color.parseColor("#5C0CE9"));
-            set1.setColors(colors);
-            set1.setStackLabels(new String[]{"sleep", "exercise", "meditation","socializing","water","hobbies"});
-            ArrayList<IBarDataSet> dataSets = new ArrayList<IBarDataSet>();
-            dataSets.add(set1);
-            BarData data = new BarData(dataSets);
+        yVals1.add(new BarEntry(1, new float[]{
+                Float.valueOf(allreport.get(0).Sleep.substring(0, allreport.get(0).Sleep.indexOf(" "))),
+                Float.valueOf(allreport.get(0).Exercise.substring(0, allreport.get(0).Exercise.indexOf(" "))),
+                Float.valueOf(allreport.get(0).Meditation.substring(0, allreport.get(0).Meditation.indexOf(" "))),
+                Float.valueOf(allreport.get(0).Social.substring(0, allreport.get(0).Social.indexOf(" "))),
+                Float.valueOf(allreport.get(0).Water.substring(0, allreport.get(0).Water.indexOf(" "))),
+                Float.valueOf(allreport.get(0).Hobby.substring(0, allreport.get(0).Hobby.indexOf(" ")))}));
+        yVals1.add(new BarEntry(2, new float[]{
+                Float.valueOf(allreport.get(1).Sleep.substring(0, allreport.get(1).Sleep.indexOf(" "))),
+                Float.valueOf(allreport.get(1).Exercise.substring(0, allreport.get(1).Exercise.indexOf(" "))),
+                Float.valueOf(allreport.get(1).Meditation.substring(0, allreport.get(1).Meditation.indexOf(" "))),
+                Float.valueOf(allreport.get(1).Social.substring(0, allreport.get(1).Social.indexOf(" "))),
+                Float.valueOf(allreport.get(1).Water.substring(0, allreport.get(1).Water.indexOf(" "))),
+                Float.valueOf(allreport.get(1).Hobby.substring(0, allreport.get(1).Hobby.indexOf(" ")))}));
+        yVals1.add(new BarEntry(3, new float[]{
+                Float.valueOf(allreport.get(2).Sleep.substring(0, allreport.get(2).Sleep.indexOf(" "))),
+                Float.valueOf(allreport.get(2).Exercise.substring(0, allreport.get(2).Exercise.indexOf(" "))),
+                Float.valueOf(allreport.get(2).Meditation.substring(0, allreport.get(2).Meditation.indexOf(" "))),
+                Float.valueOf(allreport.get(2).Social.substring(0, allreport.get(2).Social.indexOf(" "))),
+                Float.valueOf(allreport.get(2).Water.substring(0, allreport.get(2).Water.indexOf(" "))),
+                Float.valueOf(allreport.get(2).Hobby.substring(0, allreport.get(2).Hobby.indexOf(" ")))}));
+        yVals1.add(new BarEntry(4, new float[]{
+                Float.valueOf(allreport.get(3).Sleep.substring(0, allreport.get(3).Sleep.indexOf(" "))),
+                Float.valueOf(allreport.get(3).Exercise.substring(0, allreport.get(3).Exercise.indexOf(" "))),
+                Float.valueOf(allreport.get(3).Meditation.substring(0, allreport.get(3).Meditation.indexOf(" "))),
+                Float.valueOf(allreport.get(3).Social.substring(0, allreport.get(3).Social.indexOf(" "))),
+                Float.valueOf(allreport.get(3).Water.substring(0, allreport.get(3).Water.indexOf(" "))),
+                Float.valueOf(allreport.get(3).Hobby.substring(0, allreport.get(3).Hobby.indexOf(" ")))}));
+        yVals1.add(new BarEntry(5, new float[]{
+                Float.valueOf(allreport.get(4).Sleep.substring(0, allreport.get(4).Sleep.indexOf(" "))),
+                Float.valueOf(allreport.get(4).Exercise.substring(0, allreport.get(4).Exercise.indexOf(" "))),
+                Float.valueOf(allreport.get(4).Meditation.substring(0, allreport.get(4).Meditation.indexOf(" "))),
+                Float.valueOf(allreport.get(4).Social.substring(0, allreport.get(4).Social.indexOf(" "))),
+                Float.valueOf(allreport.get(4).Water.substring(0, allreport.get(4).Water.indexOf(" "))),
+                Float.valueOf(allreport.get(4).Hobby.substring(0, allreport.get(4).Hobby.indexOf(" ")))}));
+        yVals1.add(new BarEntry(6, new float[]{
+                Float.valueOf(allreport.get(5).Sleep.substring(0, allreport.get(5).Sleep.indexOf(" "))),
+                Float.valueOf(allreport.get(5).Exercise.substring(0, allreport.get(5).Exercise.indexOf(" "))),
+                Float.valueOf(allreport.get(5).Meditation.substring(0, allreport.get(5).Meditation.indexOf(" "))),
+                Float.valueOf(allreport.get(5).Social.substring(0, allreport.get(5).Social.indexOf(" "))),
+                Float.valueOf(allreport.get(5).Water.substring(0, allreport.get(5).Water.indexOf(" "))),
+                Float.valueOf(allreport.get(5).Hobby.substring(0, allreport.get(5).Hobby.indexOf(" ")))}));
+        yVals1.add(new BarEntry(7, new float[]{
+                Float.valueOf(allreport.get(6).Sleep.substring(0, allreport.get(6).Sleep.indexOf(" "))),
+                Float.valueOf(allreport.get(6).Exercise.substring(0, allreport.get(6).Exercise.indexOf(" "))),
+                Float.valueOf(allreport.get(6).Meditation.substring(0, allreport.get(6).Meditation.indexOf(" "))),
+                Float.valueOf(allreport.get(6).Social.substring(0, allreport.get(6).Social.indexOf(" "))),
+                Float.valueOf(allreport.get(6).Water.substring(0, allreport.get(6).Water.indexOf(" "))),
+                Float.valueOf(allreport.get(6).Hobby.substring(0, allreport.get(6).Hobby.indexOf(" ")))}));
+        yVals1.add(new BarEntry(num, new float[]{ms1, ms2, ms3,ms4,ms5,ms6}));
+        BarDataSet set1 = new BarDataSet(yVals1, " ");
+        ArrayList<Integer> colors = new ArrayList<Integer>();
+        colors.add(Color.parseColor("#76D7C4"));
+        colors.add(Color.parseColor("#ffcc65"));
+        colors.add(Color.parseColor("#f57f76"));
+        colors.add(Color.parseColor("#cde3f2"));
+        colors.add(Color.parseColor("#a5d079"));
+        colors.add(Color.parseColor("#5C0CE9"));
+        set1.setColors(colors);
+        set1.setStackLabels(new String[]{"sleep", "exercise", "meditation","socializing","water","hobbies"});
+        ArrayList<IBarDataSet> dataSets = new ArrayList<IBarDataSet>();
+        dataSets.add(set1);
+        BarData data = new BarData(dataSets);
 
-             data.setValueFormatter(new IValueFormatter() {
+        data.setValueFormatter(new IValueFormatter() {
             @Override
             public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
                 if(value ==0){
@@ -1039,27 +1081,27 @@ public class ReportPage extends AppCompatActivity implements OnChartValueSelecte
             }
         });
 
-            data.setDrawValues(false);
-            data.setValueTextColor(Color.BLACK);
-            set1.setValueTextSize(10f);
-            set1.setAxisDependency(YAxis.AxisDependency.LEFT);
-            float barWidth = 0.8f; // x2 dataset
-             data.setBarWidth(barWidth);
+        data.setDrawValues(false);
+        data.setValueTextColor(Color.BLACK);
+        set1.setValueTextSize(10f);
+        set1.setAxisDependency(YAxis.AxisDependency.LEFT);
+        float barWidth = 0.8f; // x2 dataset
+        data.setBarWidth(barWidth);
 //            mBarChart.setData(data);
-            return data;
+        return data;
     }
 
 
 
     private BarData getsingleBarData(float mon,float tue,float wed,float thu,float fri,float sat,float sun,float week,String activity,String chartcolor) {
         ArrayList<BarEntry> yVals1 = new ArrayList<BarEntry>();
-            yVals1.add(new BarEntry(1, mon));
-            yVals1.add(new BarEntry(2, tue));
-            yVals1.add(new BarEntry(3, wed));
-            yVals1.add(new BarEntry(4, thu));
-            yVals1.add(new BarEntry(5, fri));
-            yVals1.add(new BarEntry(6, sat));
-            yVals1.add(new BarEntry(7, sun));
+        yVals1.add(new BarEntry(1, mon));
+        yVals1.add(new BarEntry(2, tue));
+        yVals1.add(new BarEntry(3, wed));
+        yVals1.add(new BarEntry(4, thu));
+        yVals1.add(new BarEntry(5, fri));
+        yVals1.add(new BarEntry(6, sat));
+        yVals1.add(new BarEntry(7, sun));
 
 
         yVals1.remove(num-1);
@@ -1089,17 +1131,17 @@ public class ReportPage extends AppCompatActivity implements OnChartValueSelecte
 
 
         data.setValueFormatter(new IValueFormatter() {
-        @Override
-        public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
-            if(value ==0){
-                DecimalFormat df = new DecimalFormat("###");
-                return " ";
-            } else{
-                DecimalFormat df = new DecimalFormat("###");
-                return ""+df.format(value);
+            @Override
+            public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
+                if(value ==0){
+                    DecimalFormat df = new DecimalFormat("###");
+                    return " ";
+                } else{
+                    DecimalFormat df = new DecimalFormat("###");
+                    return ""+df.format(value);
+                }
             }
-    }
-});
+        });
 
         set1.setValueTextSize(10f);
         set1.setAxisDependency(YAxis.AxisDependency.LEFT);
@@ -1129,7 +1171,7 @@ public class ReportPage extends AppCompatActivity implements OnChartValueSelecte
         return level;
     }
 
-    public void generatecombinecharttotal(){
+    public void generatecombinecharttotal(final CombinedChart totalchart){
         new AsyncTask<String, Void, String>() {
             @Override
             protected String doInBackground(String... params) {
@@ -1138,27 +1180,27 @@ public class ReportPage extends AppCompatActivity implements OnChartValueSelecte
 
             @Override
             protected void onPostExecute(String courses) {
-                mChart.setDragEnabled(false);
-                mChart.setTouchEnabled(false);
-                mChart.getDescription().setText(" ");
-                mChart.setHighlightFullBarEnabled(true);
-                mChart.setDrawOrder(new CombinedChart.DrawOrder[]{
+                totalchart.setDragEnabled(false);
+                totalchart.setTouchEnabled(false);
+                totalchart.getDescription().setText(" ");
+                totalchart.setHighlightFullBarEnabled(true);
+                totalchart.setDrawOrder(new CombinedChart.DrawOrder[]{
                         CombinedChart.DrawOrder.BAR,CombinedChart.DrawOrder.LINE
                 });
-                mChart.getXAxis().setDrawLabels(true);
-                Legend l = mChart.getLegend();
+                totalchart.getXAxis().setDrawLabels(true);
+                Legend l = totalchart.getLegend();
                 l.setWordWrapEnabled(true);
                 l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
                 l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
                 l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
-                YAxis rightAxis = mChart.getAxisRight();
+                YAxis rightAxis = totalchart.getAxisRight();
                 rightAxis.setDrawGridLines(true);
                 rightAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
-                YAxis leftAxis = mChart.getAxisLeft();
+                YAxis leftAxis = totalchart.getAxisLeft();
                 leftAxis.setDrawGridLines(false);
                 leftAxis.setAxisMinimum(0f);
-                mChart.setDrawGridBackground(false);
-                XAxis xAxis = mChart.getXAxis();
+                totalchart.setDrawGridBackground(false);
+                XAxis xAxis = totalchart.getXAxis();
                 xAxis.setAxisMinimum(0f);
                 xAxis.setGranularity(1f);
                 xAxis.setDrawGridLines(true);
@@ -1173,11 +1215,11 @@ public class ReportPage extends AppCompatActivity implements OnChartValueSelecte
                 data.setData(getBarData());
                 data.setData(generateLineData());
                 xAxis.setAxisMaximum(data.getXMax() + 0.25f);
-                mChart.setData(data);
-                mChart.getAxisRight().setEnabled(false);
-                mChart.getAxisLeft().setEnabled(false);
-                mChart.animateXY(1200, 1200);
-                mChart.invalidate();
+                totalchart.setData(data);
+                totalchart.getAxisRight().setEnabled(false);
+                totalchart.getAxisLeft().setEnabled(false);
+                totalchart.animateXY(1200, 1200);
+                totalchart.invalidate();
             }
         }.execute();
     }
@@ -1222,50 +1264,68 @@ public class ReportPage extends AppCompatActivity implements OnChartValueSelecte
     public void checkdetail() {
 
         if (ms1 == 0) {
+            sleeppdf.setText("Sleep:\n"+ms1+" Hour");
             sleep.setText("Sleep:\n"+ms1+" Hour");
         } else if (ms1 < 10 && ms1 > 0) {
+            sleeppdf.setText("Sleep:\n"+ms1+" Hours");
             sleep.setText("Sleep:\n"+ms1+" Hours");
         } else if (ms1 >= 10 ) {
+            sleeppdf.setText("Sleep:\n"+ms1+" Hours or more");
             sleep.setText("Sleep:\n"+ms1+" Hours or more");
         }
 
         if (ms2 == 0) {
+            exercisepdf.setText("Exercise:\n"+ms2+" Minute");
             exercise.setText("Exercise:\n"+ms2+" Minute");
-        } else if (ms2 < 80 && ms2 > 0) {
+        } else if (ms2 < 60 && ms2 > 0) {
+            exercisepdf.setText("Exercise:\n"+ms2+" Minutes");
             exercise.setText("Exercise:\n"+ms2+" Minutes");
-        } else if (ms2 >= 80 ) {
+        } else if (ms2 >= 60 ) {
+            exercisepdf.setText("Exercise:\n"+ms2+" Minutes or more");
             exercise.setText("Exercise:\n"+ms2+" Minutes or more");
         }
 
         if (ms3 == 0) {
+            meditationpdf.setText("Exercise:\n"+ms3+" Minute");
             meditation.setText("Exercise:\n"+ms3+" Minute");
-        } else if (ms3 < 11 && ms3 > 0) {
+        } else if (ms3 < 15 && ms3 > 0) {
+            meditationpdf.setText("Exercise:\n"+ms3+" Minutes");
             meditation.setText("Exercise:\n"+ms3+" Minutes");
-        } else if (ms3 >= 11 ) {
+        } else if (ms3 >= 15 ) {
+            meditationpdf.setText("Exercise:\n"+ms3+" Minutes or more");
             meditation.setText("Exercise:\n"+ms3+" Minutes or more");
         }
 
         if (ms4 == 0) {
+            socialpdf.setText("Social:\n"+ms4+" Minute");
             social.setText("Social:\n"+ms4+" Minute");
         } else if (ms4 < 90 && ms4 > 0) {
+            socialpdf.setText("Social:\n"+ms4+" Minutes");
             social.setText("Social:\n"+ms4+" Minutes");
         } else if (ms4 >= 90 ) {
+            socialpdf.setText("Social:\n"+ms4+" Minutes or more");
             social.setText("Social:\n"+ms4+" Minutes or more");
         }
 
         if (ms5 == 0) {
+            waterpdf.setText("Water:\n"+ms5+" Glass");
             water.setText("Water:\n"+ms5+" Glass");
-        } else if (ms5 < 90 && ms5 > 0) {
+        } else if (ms5 < 10 && ms5 > 0) {
+            waterpdf.setText("Water:\n"+ms5+" Glasses");
             water.setText("Water:\n"+ms5+" Glasses");
-        } else if (ms5 >= 90 ) {
+        } else if (ms5 >= 10 ) {
+            waterpdf.setText("Water:\n"+ms5+" Glasses or more");
             water.setText("Water:\n"+ms5+" Glasses or more");
         }
 
         if (ms6 == 0) {
+            hobbypdf.setText("Hobby:\n"+ms6+" Minute");
             hobby.setText("Hobby:\n"+ms6+" Minute");
         } else if (ms6 < 70 && ms6 > 0) {
+            hobbypdf.setText("Hobby:\n"+ms6+" Minutes");
             hobby.setText("Hobby:\n"+ms6+" Minutes");
         } else if (ms6 >= 70 ) {
+            hobbypdf.setText("Hobby:\n"+ms6+" Minutes or more");
             hobby.setText("Hobby:\n"+ms6+" Minutes or more");
         }
     }
@@ -1273,36 +1333,50 @@ public class ReportPage extends AppCompatActivity implements OnChartValueSelecte
 
     public void checkheadcurrent(float difference){
         if(difference<=0){
+            currentpdf.setImageDrawable(getResources().getDrawable(R.drawable.h7));
             current.setImageDrawable(getResources().getDrawable(R.drawable.h7));
         } else if(difference>0 && difference<=2){
+            currentpdf.setImageDrawable(getResources().getDrawable(R.drawable.h6));
             current.setImageDrawable(getResources().getDrawable(R.drawable.h6));
         } else if(difference>2 && difference<=4){
+            currentpdf.setImageDrawable(getResources().getDrawable(R.drawable.h5));
             current.setImageDrawable(getResources().getDrawable(R.drawable.h5));
         } else if(difference>4 && difference<=6){
+            currentpdf.setImageDrawable(getResources().getDrawable(R.drawable.h4));
             current.setImageDrawable(getResources().getDrawable(R.drawable.h4));
         } else if(difference>6 && difference<=8){
+            currentpdf.setImageDrawable(getResources().getDrawable(R.drawable.h3));
             current.setImageDrawable(getResources().getDrawable(R.drawable.h3));
         } else if(difference>8 && difference<=10){
+            currentpdf.setImageDrawable(getResources().getDrawable(R.drawable.h2));
             current.setImageDrawable(getResources().getDrawable(R.drawable.h2));
         } else if(difference>10 && difference<=12){
+            currentpdf.setImageDrawable(getResources().getDrawable(R.drawable.h1));
             current.setImageDrawable(getResources().getDrawable(R.drawable.h1));
         }
     }
 
     public void checkheadtoday(float difference){
         if(difference<=0){
+            todaypdf.setImageDrawable(getResources().getDrawable(R.drawable.h7));
             today.setImageDrawable(getResources().getDrawable(R.drawable.h7));
         } else if(difference>0 && difference<=2){
+            todaypdf.setImageDrawable(getResources().getDrawable(R.drawable.h6));
             today.setImageDrawable(getResources().getDrawable(R.drawable.h6));
         } else if(difference>2 && difference<=4){
+            todaypdf.setImageDrawable(getResources().getDrawable(R.drawable.h5));
             today.setImageDrawable(getResources().getDrawable(R.drawable.h5));
         } else if(difference>4 && difference<=6){
+            todaypdf.setImageDrawable(getResources().getDrawable(R.drawable.h4));
             today.setImageDrawable(getResources().getDrawable(R.drawable.h4));
         } else if(difference>6 && difference<=8){
+            todaypdf.setImageDrawable(getResources().getDrawable(R.drawable.h3));
             today.setImageDrawable(getResources().getDrawable(R.drawable.h3));
         } else if(difference>8 && difference<=10){
+            todaypdf.setImageDrawable(getResources().getDrawable(R.drawable.h2));
             today.setImageDrawable(getResources().getDrawable(R.drawable.h2));
         } else if(difference>10 && difference<=12){
+            todaypdf.setImageDrawable(getResources().getDrawable(R.drawable.h1));
             today.setImageDrawable(getResources().getDrawable(R.drawable.h1));
         }
     }
@@ -1343,18 +1417,25 @@ public class ReportPage extends AppCompatActivity implements OnChartValueSelecte
 
     public void changeyesterdayhead(float difference){
         if(difference<=0){
+            yesterdaypdf.setImageDrawable(getResources().getDrawable(R.drawable.h7));
             yesterday.setImageDrawable(getResources().getDrawable(R.drawable.h7));
         } else if(difference>0 && difference<=2){
+            yesterdaypdf.setImageDrawable(getResources().getDrawable(R.drawable.h6));
             yesterday.setImageDrawable(getResources().getDrawable(R.drawable.h6));
         } else if(difference>2 && difference<=4){
+            yesterdaypdf.setImageDrawable(getResources().getDrawable(R.drawable.h5));
             yesterday.setImageDrawable(getResources().getDrawable(R.drawable.h5));
         } else if(difference>4 && difference<=6){
+            yesterdaypdf.setImageDrawable(getResources().getDrawable(R.drawable.h4));
             yesterday.setImageDrawable(getResources().getDrawable(R.drawable.h4));
         } else if(difference>6 && difference<=8){
+            yesterdaypdf.setImageDrawable(getResources().getDrawable(R.drawable.h3));
             yesterday.setImageDrawable(getResources().getDrawable(R.drawable.h3));
         } else if(difference>8 && difference<=10){
+            yesterdaypdf.setImageDrawable(getResources().getDrawable(R.drawable.h2));
             yesterday.setImageDrawable(getResources().getDrawable(R.drawable.h2));
         } else if(difference>10 && difference<=12){
+            yesterdaypdf.setImageDrawable(getResources().getDrawable(R.drawable.h1));
             yesterday.setImageDrawable(getResources().getDrawable(R.drawable.h1));
         }
     }
@@ -1647,10 +1728,10 @@ public class ReportPage extends AppCompatActivity implements OnChartValueSelecte
     }
 
     public Integer getNumber(String week){
-    Integer number = 0;
-    if(week=="Mon"){
-        number =1;
-    }
+        Integer number = 0;
+        if(week=="Mon"){
+            number =1;
+        }
         if(week=="Tue"){
             number =2;
         }
@@ -1669,7 +1750,7 @@ public class ReportPage extends AppCompatActivity implements OnChartValueSelecte
         if(week=="Sun"){
             number =7;
         }
-    return number;
+        return number;
     }
 
 
@@ -1759,4 +1840,117 @@ public class ReportPage extends AppCompatActivity implements OnChartValueSelecte
 //            startActivity(intent);
 //        }
 //    }
+
+
+    public void createcombinechart(CombinedChart choosechart, Integer checktime ){
+        if(checktime == 1) {
+            if(choosechart == mChart){
+                changeactivity.setText("Sleep");
+            }
+            generatecombinechart(
+                    choosechart,
+                    Float.valueOf(allreport.get(0).Sleep.substring(0, allreport.get(0).Sleep.indexOf(" "))),
+                    Float.valueOf(allreport.get(1).Sleep.substring(0, allreport.get(0).Sleep.indexOf(" "))),
+                    Float.valueOf(allreport.get(2).Sleep.substring(0, allreport.get(0).Sleep.indexOf(" "))),
+                    Float.valueOf(allreport.get(3).Sleep.substring(0, allreport.get(0).Sleep.indexOf(" "))),
+                    Float.valueOf(allreport.get(4).Sleep.substring(0, allreport.get(0).Sleep.indexOf(" "))),
+                    Float.valueOf(allreport.get(5).Sleep.substring(0, allreport.get(0).Sleep.indexOf(" "))),
+                    Float.valueOf(allreport.get(6).Sleep.substring(0, allreport.get(0).Sleep.indexOf(" "))),
+                    Float.valueOf(ms1),"Sleep (Hours)",
+                    "#ffcc65"
+
+            );
+        }
+        if(checktime == 2) {
+            if(choosechart == mChart){
+                changeactivity.setText("Exercise");
+            }
+            generatecombinechart(
+                    choosechart,
+                    Float.valueOf(allreport.get(0).Exercise.substring(0, allreport.get(0).Exercise.indexOf(" "))),
+                    Float.valueOf(allreport.get(1).Exercise.substring(0, allreport.get(0).Exercise.indexOf(" "))),
+                    Float.valueOf(allreport.get(2).Exercise.substring(0, allreport.get(0).Exercise.indexOf(" "))),
+                    Float.valueOf(allreport.get(3).Exercise.substring(0, allreport.get(0).Exercise.indexOf(" "))),
+                    Float.valueOf(allreport.get(4).Exercise.substring(0, allreport.get(0).Exercise.indexOf(" "))),
+                    Float.valueOf(allreport.get(5).Exercise.substring(0, allreport.get(0).Exercise.indexOf(" "))),
+                    Float.valueOf(allreport.get(6).Exercise.substring(0, allreport.get(0).Exercise.indexOf(" "))),
+                    Float.valueOf(ms2),"Exercise (Minutes)",
+                    "#f57f76"
+            );
+        }
+        if(checktime == 3) {
+            if(choosechart == mChart){
+                changeactivity.setText("Meditation");
+            }
+            generatecombinechart(
+                    choosechart,
+                    Float.valueOf(allreport.get(0).Meditation.substring(0, allreport.get(0).Meditation.indexOf(" "))),
+                    Float.valueOf(allreport.get(1).Meditation.substring(0, allreport.get(0).Meditation.indexOf(" "))),
+                    Float.valueOf(allreport.get(2).Meditation.substring(0, allreport.get(0).Meditation.indexOf(" "))),
+                    Float.valueOf(allreport.get(3).Meditation.substring(0, allreport.get(0).Meditation.indexOf(" "))),
+                    Float.valueOf(allreport.get(4).Meditation.substring(0, allreport.get(0).Meditation.indexOf(" "))),
+                    Float.valueOf(allreport.get(5).Meditation.substring(0, allreport.get(0).Meditation.indexOf(" "))),
+                    Float.valueOf(allreport.get(6).Meditation.substring(0, allreport.get(0).Meditation.indexOf(" "))),
+                    Float.valueOf(ms3),"Meditation (Minutes)",
+                    "#2DE3AC"
+            );
+        }
+        if(checktime == 4) {
+            if(choosechart == mChart){
+                changeactivity.setText("Social");
+            }
+            generatecombinechart(
+                    choosechart,
+                    Float.valueOf(allreport.get(0).Social.substring(0, allreport.get(0).Social.indexOf(" "))),
+                    Float.valueOf(allreport.get(1).Social.substring(0, allreport.get(0).Social.indexOf(" "))),
+                    Float.valueOf(allreport.get(2).Social.substring(0, allreport.get(0).Social.indexOf(" "))),
+                    Float.valueOf(allreport.get(3).Social.substring(0, allreport.get(0).Social.indexOf(" "))),
+                    Float.valueOf(allreport.get(4).Social.substring(0, allreport.get(0).Social.indexOf(" "))),
+                    Float.valueOf(allreport.get(5).Social.substring(0, allreport.get(0).Social.indexOf(" "))),
+                    Float.valueOf(allreport.get(6).Social.substring(0, allreport.get(0).Social.indexOf(" "))),
+                    Float.valueOf(ms4),"Social (Minutes)",
+                    "#8B2DE3"
+            );
+        }
+        if(checktime == 5) {
+            if(choosechart == mChart){
+                changeactivity.setText("Water");
+            }
+            generatecombinechart(
+                    choosechart,
+                    Float.valueOf(allreport.get(0).Water.substring(0, allreport.get(0).Water.indexOf(" "))),
+                    Float.valueOf(allreport.get(1).Water.substring(0, allreport.get(0).Water.indexOf(" "))),
+                    Float.valueOf(allreport.get(2).Water.substring(0, allreport.get(0).Water.indexOf(" "))),
+                    Float.valueOf(allreport.get(3).Water.substring(0, allreport.get(0).Water.indexOf(" "))),
+                    Float.valueOf(allreport.get(4).Water.substring(0, allreport.get(0).Water.indexOf(" "))),
+                    Float.valueOf(allreport.get(5).Water.substring(0, allreport.get(0).Water.indexOf(" "))),
+                    Float.valueOf(allreport.get(6).Water.substring(0, allreport.get(0).Water.indexOf(" "))),
+                    Float.valueOf(ms5),"Water (Glasses)",
+                    "#EB4160"
+            );
+        }
+        if(checktime == 6) {
+            if(choosechart == mChart){
+                changeactivity.setText("Hobby");
+            }
+            generatecombinechart(
+                    choosechart,
+                    Float.valueOf(allreport.get(0).Hobby.substring(0, allreport.get(0).Hobby.indexOf(" "))),
+                    Float.valueOf(allreport.get(1).Hobby.substring(0, allreport.get(0).Hobby.indexOf(" "))),
+                    Float.valueOf(allreport.get(2).Hobby.substring(0, allreport.get(0).Hobby.indexOf(" "))),
+                    Float.valueOf(allreport.get(3).Hobby.substring(0, allreport.get(0).Hobby.indexOf(" "))),
+                    Float.valueOf(allreport.get(4).Hobby.substring(0, allreport.get(0).Hobby.indexOf(" "))),
+                    Float.valueOf(allreport.get(5).Hobby.substring(0, allreport.get(0).Hobby.indexOf(" "))),
+                    Float.valueOf(allreport.get(6).Hobby.substring(0, allreport.get(0).Hobby.indexOf(" "))),
+                    Float.valueOf(ms6), "Hobbies (Minutes)",
+                    "#F9ED2C"
+            );
+        }
+        if(checktime == 7) {
+            if(choosechart == mChart){
+                changeactivity.setText("Total");
+            }
+            generatecombinecharttotal(choosechart);
+        }
+    }
 }

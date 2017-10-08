@@ -4,16 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:id="@+id/scroll"
-        android:layout_height="match_parent">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -40,12 +33,21 @@
 
     </RelativeLayout>
 
+</LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:id="@+id/scroll"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:orientation="horizontal"
-
-
                 >
 
                 <TextView
@@ -54,9 +56,8 @@
                     android:layout_height="match_parent"
                     android:textSize="30dp"
                     android:gravity="center"
-                    android:text="Cause of stress"
+                    android:text="CAUSE OF STRESS"
                     />
-
             </LinearLayout>
 
 

@@ -52,7 +52,6 @@ public class NotificationPage extends AppCompatActivity {
         timePicker = (TimePicker)findViewById(timepicker);
         set = (Button) findViewById(R.id.setalarm);
         set_timepicker_text_colour(timePicker);
-
         SharedPreferences ppstress = getBaseContext().getSharedPreferences("previousstress", 0);
         int hour = Integer.valueOf(ppstress.getString("hour","0"));
         int min = Integer.valueOf(ppstress.getString("min","0"));
@@ -137,15 +136,15 @@ public class NotificationPage extends AppCompatActivity {
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent notificationIntent = new Intent("android.media.action.DISPLAY_NOTIFICATION");
         notificationIntent.addCategory("android.intent.category.DEFAULT");
-        PendingIntent broadcast = PendingIntent.getBroadcast(this, 100, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent broadcast = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         Calendar cal = Calendar.getInstance(Locale.getDefault());
         cal.setTimeInMillis(System.currentTimeMillis());
         cal.set(Calendar.HOUR_OF_DAY, hour);
         cal.set(Calendar.MINUTE, min);
         cal.set(Calendar.SECOND, 0);
         cal.set(Calendar.MILLISECOND, 0);
-        Intent intent = new Intent();
-        intent.setAction("testalarm0");
+//        Intent intent = new Intent();
+//        intent.setAction("testalarm0");
 //        PendingIntent pendingIntent=PendingIntent.getBroadcast(getBaseContext(),0, intent,PendingIntent.FLAG_CANCEL_CURRENT);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,cal.getTimeInMillis(),AlarmManager.INTERVAL_DAY,broadcast);
     }

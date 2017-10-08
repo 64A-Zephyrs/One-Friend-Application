@@ -30,6 +30,7 @@ public class NotificationFragment extends Fragment {
     Button notsure;
     Button question;
     Button report;
+    Button reportbutton;
     Animation[] animations = new Animation[4];
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -85,6 +86,7 @@ public class NotificationFragment extends Fragment {
         ScaleAnimation scaleAnimation2 = new ScaleAnimation(0.5f, 1, 0.5f, 1f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         scaleAnimation2.setDuration(500);
 
+        reportbutton = (Button) view.findViewById(R.id.reportselect);
         yes = (Button) view.findViewById(R.id.yes);
         no = (Button) view.findViewById(R.id.no);
         notsure = (Button) view.findViewById(R.id.notsure);
@@ -130,6 +132,15 @@ public class NotificationFragment extends Fragment {
 
         report = (Button) view.findViewById(R.id.report_page);
         report.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent testintent = new Intent(getActivity(),ReportPage.class);
+                startActivity(testintent);
+                getActivity().overridePendingTransition(R.anim.fade, R.anim.hold);
+            }
+        });
+
+        reportbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent testintent = new Intent(getActivity(),ReportPage.class);

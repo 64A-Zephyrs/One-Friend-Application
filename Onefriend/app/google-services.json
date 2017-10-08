@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "523673959561-a9rfj87j81ff35lr1u7naqdtbmrhvqtd.apps.googleusercontent.com",
+          "client_id": "523673959561-jdmpb5h9lk1r2igsg8rcrtgo6e73e9gg.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.zephyrs.android.onefriend",
-            "certificate_hash": "356c457a994d8819992f8c7a30da3ccebcb59cc8"
+            "certificate_hash": "bcbfd05671717f00ae3ccac41d87111d42fcc6fc"
           }
         },
         {
@@ -29,7 +29,7 @@
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC569L5eIEKExuzhMhiQer6CB1AjglH5wg"
+          "current_key": "AIzaSyCeWx51s72kf7AUxyHzaqh8Auv4xH3CAFI"
         }
       ],
       "services": {

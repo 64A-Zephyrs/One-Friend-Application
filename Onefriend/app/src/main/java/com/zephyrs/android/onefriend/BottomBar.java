@@ -12,9 +12,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +32,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
@@ -68,6 +69,7 @@ public class BottomBar extends AppCompatActivity implements
     Integer fragment;
     private GoogleApiClient mGoogleApiClient;
     private TextView mStatusTextView;
+    private SignInButton signInButton;
     private TextView mDetailTextView;
     private ProgressDialog mProgressDialog;
     private DatabaseReference mDatabase;
@@ -85,7 +87,6 @@ public class BottomBar extends AppCompatActivity implements
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction transaction = fragmentManager.beginTransaction();
 
@@ -114,7 +115,18 @@ public class BottomBar extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bottom_bar);
 
-        FacebookSdk.sdkInitialize(getApplicationContext());
+//        signInButton = new SignInButton(getBaseContext());
+//        signInButton.setSize(SignInButton.SIZE_STANDARD);
+//        TextView textView = (TextView) signInButton.getChildAt(0);
+//        textView.setText("your_text_xyz");
+
+//        AccessToken.setCurrentAccessToken(null);
+//        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+//        if(accessToken != null){
+//            LoginManager.getInstance().logOut();
+//        }
+
+        FacebookSdk.sdkInitialize(this.getApplicationContext());
         AppEventsLogger.activateApp(this);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
@@ -127,20 +139,22 @@ public class BottomBar extends AppCompatActivity implements
 
         Intent changepage = getIntent();
         fragment = changepage.getIntExtra("page",1);
-
         if(fragment==1){
             transaction.replace(R.id.content,new NotificationFragment()).commit();
         }
         if(fragment==2) {
             transaction.replace(R.id.content,new HomeFragment()).commit();
+            Menu menu = navigation.getMenu();
+                MenuItem item = menu.getItem(1);
+                item.setChecked(true);
         }
 
 
         findViewById(R.id.sign_in_button).setOnClickListener(this);
 //        findViewById(R.id.sign_out_button).setOnClickListener(this);
 
+        String dd = getString(R.string.default_web_client_id);
 
-        Button b2 =(Button) findViewById(R.id.hehe);
         // [START config_signin]
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -185,85 +199,6 @@ public class BottomBar extends AppCompatActivity implements
                 // ...
             }
         });
-
-//        new AsyncTask<String, Void, String>() {
-//            @Override
-//            protected String doInBackground(String... params) {
-//        FirebaseUser user4 = FirebaseAuth.getInstance().getCurrentUser();
-//        DatabaseReference myRef3 = FirebaseDatabase.getInstance().getReference();
-//        myRef3 = myRef3.child("Profile").child(user4.getUid()).child("Report").child("2017-09-12");
-//
-//        myRef3.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//    Report data = dataSnapshot.getValue(Report.class);
-//    jk = data.Sleep;
-//    SharedPreferences settings = getBaseContext().getSharedPreferences("previousstress", 0);
-//    SharedPreferences.Editor editor = settings.edit();
-//    editor.putString("pp", jk);
-//    editor.commit();
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError error) {
-//                String v = jk;
-//                Log.w("TAG", "Failed to read value.", error.toException());
-//            }
-//        });
-//
-//
-//                return "create successfully";
-//            }
-//            @Override
-//            protected void onPostExecute(String courses) {
-//
-//            }
-//        }.execute();
-
-
-
-
-
-
-
-
-
-//        FirebaseUser user3 = FirebaseAuth.getInstance().getCurrentUser();
-//        DatabaseReference myRef1 = FirebaseDatabase.getInstance().getReference();
-//        myRef1 = myRef1.child("Profile").child(user3.getUid()).child("email");
-//        myRef1.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                try {
-//                    String e = dataSnapshot.getValue(String.class);
-//                    e.toString();
-//                } catch (Exception e) {
-//
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError error) {
-//                Log.w("TAG", "Failed to read value.", error.toException());
-//            }
-//        });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
 
@@ -395,22 +330,16 @@ public class BottomBar extends AppCompatActivity implements
         if (user != null) {
             setvalue();
             setdata();
-//            mStatusTextView.setText(user.getEmail());
-//            mDetailTextView.setText(user.getUid());
             findViewById(R.id.navigation).setVisibility(View.VISIBLE);
             findViewById(R.id.content).setVisibility(View.VISIBLE);
             findViewById(R.id.login_button).setVisibility(View.GONE);
             findViewById(R.id.sign_in_button).setVisibility(View.GONE);
-//            findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
             findViewById(R.id.login_disappear).setVisibility(View.GONE);
         } else {
-//            mStatusTextView.setText("Signout");
-//            mDetailTextView.setText(null);
             findViewById(R.id.navigation).setVisibility(View.GONE);
             findViewById(R.id.content).setVisibility(View.GONE);
             findViewById(R.id.login_button).setVisibility(View.VISIBLE);
             findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
-//            findViewById(R.id.sign_out_and_disconnect).setVisibility(View.GONE);
             findViewById(R.id.login_disappear).setVisibility(View.VISIBLE);
 
         }
@@ -467,7 +396,14 @@ public class BottomBar extends AppCompatActivity implements
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("TAG", "signInWithCredential:success");
-
+                            findViewById(R.id.navigation).setVisibility(View.VISIBLE);
+                            findViewById(R.id.content).setVisibility(View.VISIBLE);
+                            findViewById(R.id.login_button).setVisibility(View.GONE);
+                            findViewById(R.id.sign_in_button).setVisibility(View.GONE);
+//                        findViewById(R.id.sign_out_and_disconnect).setVisibility(View.GONE);
+                            findViewById(R.id.login_disappear).setVisibility(View.GONE);
+                            setvalue();
+                            setdata();
 //                            Intent homeIntent = new Intent(FirebaseTest.this,Test.class);
 //                            startActivity(homeIntent);
                         } else {
@@ -477,14 +413,7 @@ public class BottomBar extends AppCompatActivity implements
                                     Toast.LENGTH_SHORT).show();
                         }
                         hideProgressDialog();
-                        findViewById(R.id.navigation).setVisibility(View.VISIBLE);
-                        findViewById(R.id.content).setVisibility(View.VISIBLE);
-                        findViewById(R.id.login_button).setVisibility(View.GONE);
-                        findViewById(R.id.sign_in_button).setVisibility(View.GONE);
-//                        findViewById(R.id.sign_out_and_disconnect).setVisibility(View.GONE);
-                        findViewById(R.id.login_disappear).setVisibility(View.GONE);
-                        setvalue();
-                        setdata();
+
                         // ...
                     }
                 });
@@ -520,13 +449,9 @@ public class BottomBar extends AppCompatActivity implements
 
     public void setdata() {
 
-
-//                ArrayList<Report> initreport= new ArrayList<Report>();
-//                for(int index=0;index<7;index++){
-//                    Report r = new Report("0 Minutes",0l,"0 Minutes","0 Minutes","3 Hours or less","0 Minutes",0l,"0 Minutes");
-//                    initreport.add(r);
-//                }
-
+        Date datespecific = new Date();
+        String specificday = ConvertDate(datespecific);
+        Integer num = getNumber(getWeek(datespecific));
                 SharedPreferences settings = getBaseContext().getSharedPreferences("previousstress", 0);
                 SharedPreferences.Editor editor = settings.edit();
                 editor.putString("1", "-2");
@@ -539,15 +464,12 @@ public class BottomBar extends AppCompatActivity implements
                 String json = "";
                 for(int index=1;index<8;index++){
                     editor.putString("SerializableObject"+index, json);
-//                    editor.putString(String.valueOf(index), "0");
                 }
                 editor.commit();
 
 
 
-        Date datespecific = new Date();
-        String specificday = ConvertDate(datespecific);
-        Integer num = getNumber(getWeek(datespecific));
+
 
         final ArrayList<String> datee = new ArrayList();
                 final Integer week = num;
@@ -558,14 +480,8 @@ public class BottomBar extends AppCompatActivity implements
             monday = getSpecifiedDayAfter(monday);
         }
 
-//        final ArrayList<Report> allreport = new ArrayList<Report>();
 
         for (int index = 0; index < num-1; index++) {
-//            specificday = getSpecifiedDayBefore(specificday);
-
-//            FirebaseUser user3 = FirebaseAuth.getInstance().getCurrentUser();
-//            DatabaseReference myRef1 = FirebaseDatabase.getInstance().getReference();
-
             FirebaseUser user3 = FirebaseAuth.getInstance().getCurrentUser();
             DatabaseReference myRef1 = FirebaseDatabase.getInstance().getReference();
             final int finalIndex = index;
@@ -575,7 +491,6 @@ public class BottomBar extends AppCompatActivity implements
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     try {
                         Report data = dataSnapshot.getValue(Report.class);
-//                        final Long data = dataSnapshot.getValue(Long.class);
                         float n = Float.valueOf(data.Today.toString());
                         n = checkstresslevel(n);
                         SharedPreferences settings = getBaseContext().getSharedPreferences("previousstress", 0);
@@ -586,7 +501,6 @@ public class BottomBar extends AppCompatActivity implements
                         editor.putString("SerializableObject"+total, json);
                         editor.putString(String.valueOf(finalIndex+1), String.valueOf(n));
                         editor.commit();
-//                        testb.putString(String.valueOf(finalIndex1), String.valueOf(n));
                     } catch (Exception e) {
                         Report a = new Report("0 Minutes",0l,"0 Minutes","0 Minutes","3 Hours or less","0 Minutes",0l,"0 Minutes");
                         allreport.add(a);
@@ -600,8 +514,6 @@ public class BottomBar extends AppCompatActivity implements
 
                 @Override
                 public void onCancelled(DatabaseError error) {
-//                    Report a = new Report("0 Minutes",0l,"0 Minutes","0 Minutes","3 Hours or less","0 Minutes",0l,"0 Minutes");
-//                    allreport.add(a);
                     SharedPreferences settings = getBaseContext().getSharedPreferences("previousstress", 0);
                     SharedPreferences.Editor editor = settings.edit();
                     editor.putString(String.valueOf(finalIndex+1), "-2");
@@ -612,7 +524,6 @@ public class BottomBar extends AppCompatActivity implements
             });
 
         }
-//                allreport.size();
     }
 
 
@@ -736,9 +647,5 @@ public class BottomBar extends AppCompatActivity implements
             level = 80;
         }
         return level;
-    }
-
-    public void checksleep(){
-
     }
 }

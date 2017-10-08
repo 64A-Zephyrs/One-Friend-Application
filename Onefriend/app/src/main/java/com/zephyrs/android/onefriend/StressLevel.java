@@ -144,7 +144,7 @@ public class StressLevel extends AppCompatActivity implements SeekBar.OnSeekBarC
         if (seekBar.equals(levelbar)) {
             if (progress <= 3) {
                 stresslevel.setText("Low stress");
-                buttontext.setText("Stress that is normal for average person. May include occasional headaches, fatigue and unusual desire for social isolation.");
+                buttontext.setText("Stress that is normal for average person. May include headaches and restlessness.");
                 AlphaAnimation animationview = new AlphaAnimation(0f, 1f);
                 animationview.setDuration(500);
                 buttontext.setAnimation(animationview);
@@ -152,7 +152,7 @@ public class StressLevel extends AppCompatActivity implements SeekBar.OnSeekBarC
             }
             if (progress > 3 && progress <= 6) {
                 stresslevel.setText("Mild stress");
-                buttontext.setText("Stress level is more than usual. May include nausea, restlessness and depression through the day.");
+                buttontext.setText("Stress level is more than usual. May include nausea, fatigue, anxiety and depression.");
                 AlphaAnimation animationview = new AlphaAnimation(0f, 1f);
                 animationview.setDuration(500);
                 buttontext.setAnimation(animationview);
@@ -160,7 +160,7 @@ public class StressLevel extends AppCompatActivity implements SeekBar.OnSeekBarC
             }
             if (progress > 6 && progress <= 9) {
                 stresslevel.setText("Medium stress");
-                buttontext.setText("Stress levels are significantly above average. May include severe muscle aches, anxiousness and significant changes in work performance. ");
+                buttontext.setText("Stress levels are significantly above average. May include severe muscle aches, body ache and lack of concentration. ");
                 AlphaAnimation animationview = new AlphaAnimation(0f, 1f);
                 animationview.setDuration(500);
                 buttontext.setAnimation(animationview);
@@ -168,7 +168,7 @@ public class StressLevel extends AppCompatActivity implements SeekBar.OnSeekBarC
             }
             if (progress > 9) {
                 stresslevel.setText("High stress");
-                buttontext.setText("Stress levels are severe and at a critical stage. May include trouble sleeping and involuntary twitching.");
+                buttontext.setText("Stress levels are severe and at a critical stage. May include trouble sleeping, desire for social isolation and involuntary twitching.");
                 AlphaAnimation animationview = new AlphaAnimation(0f, 1f);
                 animationview.setDuration(500);
                 buttontext.setAnimation(animationview);

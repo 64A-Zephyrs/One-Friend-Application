@@ -1,11 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:gravity="center_horizontal"
     android:background="@color/white"
     android:layout_height="match_parent">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:id="@+id/relativeLayout">
 
+                <Button
+                    android:id="@+id/back_button"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@mipmap/back_arrow"
+
+                    android:fontFamily="monospace"
+                    android:textAllCaps="false"
+                    android:textSize="15dp"
+                    android:textStyle="normal" />
+        </RelativeLayout>
+
+</LinearLayout>
 
 <ScrollView
     android:layout_width="match_parent"
@@ -19,36 +47,13 @@
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                 >
 
-                <RelativeLayout
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:orientation="horizontal"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="10dp"
-                    android:id="@+id/relativeLayout">
-
-                    <Button
-                        android:id="@+id/back_button"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:background="@mipmap/back_arrow"
-
-                        android:fontFamily="monospace"
-                        android:textAllCaps="false"
-                        android:textSize="15dp"
-                        android:textStyle="normal" />
-
-                </RelativeLayout>
-
+                    android:gravity="center"
+                    ></LinearLayout>
 
                 <Button
                     android:id="@+id/studyinstress"
@@ -110,7 +115,7 @@
                     android:textSize="17dp"
                     android:layout_alignStart="@+id/quickfixes" />
 
-            </RelativeLayout>
+
 
 
         </LinearLayout>

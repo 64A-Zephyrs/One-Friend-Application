@@ -35,8 +35,6 @@ public class Disclaimer extends AppCompatActivity {
             public void onClick(View view) {
                 onBackPressed();
                 overridePendingTransition(R.anim.fade, R.anim.hold);
-//                Intent testintent = new Intent(getBaseContext(),BottomBar.class);
-//                startActivity(testintent);
             }
         });
     }

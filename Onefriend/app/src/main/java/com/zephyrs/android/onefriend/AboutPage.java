@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -19,12 +18,7 @@ public class AboutPage extends AppCompatActivity {
     Button back;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
-    Button send;
-    EditText subject1;
-    EditText comment;
     TextView t1;
-    TextView t2;
-    TextView t3;
     Button about;
 
     @Override
@@ -35,31 +29,28 @@ public class AboutPage extends AppCompatActivity {
         back = (Button)findViewById(R.id.back_button);
         about = (Button)findViewById(R.id.about);
 
-
+        //Click Back Button
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
                 overridePendingTransition(R.anim.fade, R.anim.hold);
-//                Intent testintent = new Intent(getBaseContext(),BottomBar.class);
-//                startActivity(testintent);
             }
         });
 
         about.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
-                overridePendingTransition(R.anim.fade, R.anim.hold);
                 Intent testintent = new Intent(getBaseContext(),AboutUs.class);
                 startActivity(testintent);
+                overridePendingTransition(R.anim.fade, R.anim.hold);
             }
         });
     }
 
     @Override
     public void onBackPressed() {
-        // 判断是否能够回退
+        //negoiate whether it can go back
             super.onBackPressed();
     }
 }

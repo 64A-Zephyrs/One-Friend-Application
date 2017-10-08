@@ -3,17 +3,9 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center_horizontal"
-    android:orientation="vertical"
-    >
-
+    android:layout_height="wrap_content">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -39,6 +31,25 @@
 
     </RelativeLayout>
 
+</LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    >
+
     <TextView
         android:id="@+id/textView1"
         android:layout_width="match_parent"
@@ -51,7 +62,7 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="320dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical|left"
         android:layout_marginTop="10dp"
@@ -59,7 +70,7 @@
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="320dp"
+        android:layout_width="match_parent"
         android:layout_gravity="center_horizontal"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -68,7 +79,7 @@
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="320dp"
+        android:layout_width="match_parent"
         android:layout_gravity="center_horizontal"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -77,13 +88,21 @@
 
     <TextView
         android:id="@+id/textView5"
-        android:layout_width="320dp"
+        android:layout_width="match_parent"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
         android:layout_height="wrap_content"
         android:text="Every effort is made to ensure that the app is running smoothly. However, Zephyrs takes no responsibility for, and will not be liable for, the application being temporarily unavailable due to technical issues beyond our control."
         />
 
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_height="20dp"
+        />
 </LinearLayout>
+        </RelativeLayout>
     </ScrollView>
 </LinearLayout>

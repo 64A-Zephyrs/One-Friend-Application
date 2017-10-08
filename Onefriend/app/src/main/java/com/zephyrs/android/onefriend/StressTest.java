@@ -12,10 +12,12 @@ import android.widget.Button;
 import android.widget.CheckBox;
 
 import com.google.firebase.database.DatabaseReference;
+import com.google.gson.Gson;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -90,42 +92,59 @@ public class StressTest extends AppCompatActivity {
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ArrayList<String> physical = new ArrayList<String>();
+                ArrayList<String> emtional = new ArrayList<String>();
+                ArrayList<String> cognitive = new ArrayList<String>();
+                ArrayList<String> behaviours = new ArrayList<String>();
+
                 score = 0;
                 if(b1.isChecked()){
                     score = score + 1;
+                    physical.add(b1.getText().toString());
                 }
                 if(b2.isChecked()){
                     score = score + 1;
+                    physical.add(b2.getText().toString());
                 }
                 if(b3.isChecked()){
                     score = score + 2;
+                    physical.add(b3.getText().toString());
                 }
                 if(b4.isChecked()){
-                    score = score + 2;
+                    score = score + 1;
+                    emtional.add(b4.getText().toString());
                 }
                 if(b5.isChecked()){
                     score = score + 1;
+                    emtional.add(b5.getText().toString());
                 }
                 if(b6.isChecked()){
-                    score = score + 1;
+                    score = score + 2;
+                    emtional.add(b6.getText().toString());
                 }
                 if(b7.isChecked()){
-                    score = score + 3;
+                    score = score + 1;
+                    cognitive.add(b7.getText().toString());
                 }
                 if(b8.isChecked()){
-                    score = score + 3;
+                    score = score + 1;
+                    cognitive.add(b8.getText().toString());
                 }
                 if(b9.isChecked()){
-                    score = score + 1;
+                    score = score + 2;
+                    cognitive.add(b9.getText().toString());
                 }
                 if(b10.isChecked()){
-                    score = score + 3;
+                    score = score + 1;
+                    behaviours.add(b10.getText().toString());
                 }
                 if(b11.isChecked()){
                     score = score + 1;
+                    behaviours.add(b11.getText().toString());
                 }
                 if(b12.isChecked()){
-                    score = score + 1;
+                    score = score + 2;
+                    behaviours.add(b12.getText().toString());
                 }
 
                 SharedPreferences settings = getBaseContext().getSharedPreferences("score", 0);
@@ -133,6 +152,23 @@ public class StressTest extends AppCompatActivity {
                 editor.putString("stress_score", score.toString());
                 editor.putString("stress_today", score.toString());
                 editor.commit();
+
+                SharedPreferences setting1 = getBaseContext().getSharedPreferences("previousstress", 0);
+                SharedPreferences.Editor editor1 = setting1.edit();
+                Date datespecific = new Date();
+                String specificday = ConvertDate(datespecific);
+                Gson gson = new Gson();
+                String phy = gson.toJson(physical);
+                String emo = gson.toJson(emtional);
+                String cog = gson.toJson(cognitive);
+                String beh = gson.toJson(behaviours);
+                editor1.putString("physical",phy);
+                editor1.putString("emotional",emo);
+                editor1.putString("cognitive",cog);
+                editor1.putString("behaviours",beh);
+                editor1.putString("specifictoday",specificday);
+                editor1.commit();
+
 
 
 //                Date date = new Date();

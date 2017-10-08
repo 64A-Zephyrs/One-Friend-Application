@@ -23,6 +23,8 @@ public class ActivityFragment extends Fragment {
     Button meditation;
     Button event;
     Button help;
+    Button timer;
+    Button music;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -78,7 +80,6 @@ public class ActivityFragment extends Fragment {
         event = (Button) setting.findViewById(R.id.event_view);
         help = (Button) setting.findViewById(R.id.help_view);
 
-
         ScaleAnimation scaleAnimation1 = new ScaleAnimation(0.5f, 1, 0.5f, 1f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         scaleAnimation1.setDuration(500);
         sport.startAnimation(scaleAnimation1);
@@ -118,7 +119,6 @@ public class ActivityFragment extends Fragment {
             }
         });
 
-        // Inflate the layout for this fragment
         return setting;
     }
 

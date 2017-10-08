@@ -37,8 +37,6 @@ public class AboutUs extends AppCompatActivity {
             public void onClick(View view) {
                 onBackPressed();
                 overridePendingTransition(R.anim.fade, R.anim.hold);
-//                Intent testintent = new Intent(getBaseContext(),BottomBar.class);
-//                startActivity(testintent);
             }
         });
 
@@ -67,7 +65,6 @@ public class AboutUs extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        // 判断是否能够回退
         super.onBackPressed();
     }
 }

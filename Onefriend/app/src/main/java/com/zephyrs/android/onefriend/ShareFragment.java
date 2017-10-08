@@ -20,10 +20,14 @@ import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
+import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
@@ -40,6 +44,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 
 /**
@@ -64,6 +70,7 @@ public class ShareFragment extends Fragment{
     ImageView userphoto;
     Button setreminder;
     Button report;
+    RelativeLayout reminderbutton;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -135,6 +142,7 @@ public class ShareFragment extends Fragment{
         about = (Button) setting.findViewById(R.id.about);
         aSwitch = (Switch)setting.findViewById(R.id.switch1);
         setreminder = (Button)setting.findViewById(R.id.setNotification);
+        reminderbutton = (RelativeLayout) setting.findViewById(R.id.notificationappear);
         userphoto = (ImageView) setting.findViewById(R.id.userphoto);
         report = (Button)setting.findViewById(R.id.report);
         AlphaAnimation animationview = new AlphaAnimation(0f, 1f);
@@ -147,9 +155,11 @@ public class ShareFragment extends Fragment{
         if(turn.equals("on")){
             aSwitch.setChecked(true);
             setreminder.setVisibility(View.VISIBLE);
+            reminderbutton.setVisibility(View.VISIBLE);
         } else {
             aSwitch.setChecked(false);
             setreminder.setVisibility(View.GONE);
+            reminderbutton.setVisibility(View.GONE);
 //            getActivity().findViewById(R.id.setNotification).setVisibility(View.GONE);
         }
 
@@ -171,18 +181,22 @@ public class ShareFragment extends Fragment{
                     setnotification(hour,min);
                     aSwitch.setChecked(true);
                     getActivity().findViewById(R.id.setNotification).setVisibility(View.VISIBLE);
+                    reminderbutton.setVisibility(View.VISIBLE);
                 } else {
                     SharedPreferences settings = getActivity().getSharedPreferences("previousstress", 0);
                     SharedPreferences.Editor editor = settings.edit();
                     editor.putString("turn", "off");
                     editor.commit();
                     getActivity().findViewById(R.id.setNotification).setVisibility(View.GONE);
+                    reminderbutton.setVisibility(View.GONE);
+
+                    Intent notificationIntent = new Intent("android.media.action.DISPLAY_NOTIFICATION");
+                    notificationIntent.addCategory("android.intent.category.DEFAULT");
                     AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
                     Intent intent = new Intent();
-                    aSwitch.setChecked(false);
                     intent.setAction("testalarm0");
-                    alarmManager.cancel(
-                            PendingIntent.getBroadcast(getActivity(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT));
+                    alarmManager.cancel(PendingIntent.getBroadcast(getActivity(), 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT));
+                    aSwitch.setChecked(false);
                 }
 
             }
@@ -345,8 +359,12 @@ public class ShareFragment extends Fragment{
             @Override
             public void onClick(View view) {
                     // Firebase sign out
+
                 mAuth.signOut();
+                FacebookSdk.sdkInitialize(getApplicationContext());
                 LoginManager.getInstance().logOut();
+                deleteAccessToken();
+                AccessToken.setCurrentAccessToken(null);
                 Intent testintent = new Intent(getActivity(),BottomBar.class);
                 startActivity(testintent);
                 getActivity().overridePendingTransition(R.anim.fade, R.anim.hold);
@@ -441,16 +459,31 @@ public class ShareFragment extends Fragment{
         AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
         Intent notificationIntent = new Intent("android.media.action.DISPLAY_NOTIFICATION");
         notificationIntent.addCategory("android.intent.category.DEFAULT");
-        PendingIntent broadcast = PendingIntent.getBroadcast(getActivity(), 100, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent broadcast = PendingIntent.getBroadcast(getActivity(), 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         Calendar cal = Calendar.getInstance(Locale.getDefault());
         cal.setTimeInMillis(System.currentTimeMillis());
         cal.set(Calendar.HOUR_OF_DAY, hour);
         cal.set(Calendar.MINUTE, min);
         cal.set(Calendar.SECOND, 0);
         cal.set(Calendar.MILLISECOND, 0);
-        Intent intent = new Intent();
-        intent.setAction("testalarm0");
+//        Intent intent = new Intent();
+//        intent.setAction("testalarm0");
 //        PendingIntent pendingIntent=PendingIntent.getBroadcast(getBaseContext(),0, intent,PendingIntent.FLAG_CANCEL_CURRENT);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,cal.getTimeInMillis(),AlarmManager.INTERVAL_DAY,broadcast);
+    }
+
+    private void deleteAccessToken() {
+        AccessTokenTracker accessTokenTracker = new AccessTokenTracker() {
+            @Override
+            protected void onCurrentAccessTokenChanged(
+                    AccessToken oldAccessToken,
+                    AccessToken currentAccessToken) {
+
+                if (currentAccessToken == null){
+                    //User logged out
+                    LoginManager.getInstance().logOut();
+                }
+            }
+        };
     }
 }
