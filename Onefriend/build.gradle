@@ -15,6 +15,7 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        mavenCentral()
         maven { url 'http://artifactory.cloud.mapquest.com/artifactory/et-android-binaries' }
         maven { url "https://jitpack.io" }
     }
@@ -23,3 +24,4 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
